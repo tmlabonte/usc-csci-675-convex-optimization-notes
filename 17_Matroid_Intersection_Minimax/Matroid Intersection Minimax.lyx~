@@ -835,7 +835,7 @@ An informal proof is that a bipartite graph is the intersection of two partition
 \begin_inset Formula $r_{1}(A)+r_{2}(\bar{A})$
 \end_inset
 
- so the cardinality of the minimum vertex cover is equal.
+ so the cardinality of the minimum vertex cover must be equal.
 \end_layout
 
 \end_body
