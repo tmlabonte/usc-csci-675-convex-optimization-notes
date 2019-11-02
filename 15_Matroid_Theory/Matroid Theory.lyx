@@ -1,0 +1,990 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\begin_modules
+theorems-ams
+algolyx
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date true
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 1in
+\topmargin 1in
+\rightmargin 1in
+\bottommargin 1in
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip medskip
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Matroid Theory
+\end_layout
+
+\begin_layout Section
+Matroids and the Greedy Algorithm
+\end_layout
+
+\begin_layout Standard
+Many combinatorial optimization problems concern choosing the best set from
+ a family of possible sets.
+ We can then define a 
+\series bold
+set system
+\series default
+ as 
+\begin_inset Formula $(\mathcal{X},\mathcal{I})$
+\end_inset
+
+ where 
+\begin_inset Formula $\mathcal{X}$
+\end_inset
+
+ is the 
+\series bold
+ground set
+\series default
+ and 
+\begin_inset Formula $\mathcal{I}\subseteq2^{\mathcal{X}}$
+\end_inset
+
+ are the feasible sets.
+ The objective function for combinatorial optimization problems is often
+ linear, and referred to as 
+\series bold
+modular
+\series default
+.
+ That is, we usually want to pick the feasible set with the largest possible
+ weight.
+ Later, we will study combinatorial analogs of convexity and concavity called
+ submodularity and supermodularity (though the association is not that clear-cut
+).
+ 
+\series bold
+Matroids 
+\series default
+are the combinatorial analog of convex sets, and are useful in a variety
+ of contexts.
+\end_layout
+
+\begin_layout Subsection
+Maximum Weight Forest
+\end_layout
+
+\begin_layout Standard
+Recall the 
+\series bold
+maximum weight forest 
+\series default
+problem: Given a graph 
+\begin_inset Formula $G=(V,E)$
+\end_inset
+
+ and weights 
+\begin_inset Formula $w_{e}\in\mathbb{R}$
+\end_inset
+
+ on each edge 
+\begin_inset Formula $e\in E$
+\end_inset
+
+, find the maximum weight acyclic subgraph (forest) of 
+\begin_inset Formula $G$
+\end_inset
+
+.
+ This is a generalization of the MST problem.
+ Let 
+\begin_inset Formula $|V|=n$
+\end_inset
+
+ and 
+\begin_inset Formula $|E|=m$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+We can solve this problem with a greedy algorithm similar in implementation
+ to Kruskal's Algorithm:
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Algorithm
+* Let 
+\begin_inset Formula $B=\emptyset$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Algorithm
+* Sort the non-negative weights in descending order of weight, i.e., 
+\begin_inset Formula $e_{1},\dots,e_{m}$
+\end_inset
+
+ with 
+\begin_inset Formula $w_{1}\geq w_{2}\geq\dots\geq w_{m}\geq0$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Algorithm
+for 
+\begin_inset Formula $i=1\rightarrow m$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Algorithm
+if 
+\begin_inset Formula $B\cup(e_{i})$
+\end_inset
+
+ is acyclic
+\end_layout
+
+\begin_deeper
+\begin_layout Algorithm
+* Set 
+\begin_inset Formula $B=B\cup(e_{i})$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Algorithm
+endif
+\end_layout
+
+\end_deeper
+\begin_layout Algorithm
+endfor
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Greedy Algorithm for Maximum Weight Forest
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Theorem
+The greedy algorithm outputs a maximum weight forest.
+\end_layout
+
+\begin_layout Proof
+We begin by establishing 3 critical properties of the greedy algorithm:
+\end_layout
+
+\begin_deeper
+\begin_layout Lemma
+The greedy algorithm has the following properties:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+The empty set is acyclic
+\end_layout
+
+\begin_layout Enumerate
+If 
+\begin_inset Formula $A\subseteq E$
+\end_inset
+
+ is acyclic, and 
+\begin_inset Formula $B\subseteq A$
+\end_inset
+
+, then 
+\begin_inset Formula $B$
+\end_inset
+
+ is acyclic
+\end_layout
+
+\begin_layout Enumerate
+If 
+\begin_inset Formula $A,B\subseteq E$
+\end_inset
+
+ are acyclic and 
+\begin_inset Formula $|B|>|A|$
+\end_inset
+
+, then 
+\begin_inset Formula $\exists e\in B\setminus A$
+\end_inset
+
+ such that 
+\begin_inset Formula $A\cup\{e\}$
+\end_inset
+
+ is acyclic
+\end_layout
+
+\begin_layout Proof
+It is easy to see that properties 1 and 2 are true, but property 3 is more
+ subtle.
+ Recall that if 
+\begin_inset Formula $C\subseteq E$
+\end_inset
+
+ is acyclic, then 
+\begin_inset Formula $|C|=n-components(C)$
+\end_inset
+
+ by induction.
+ When 
+\begin_inset Formula $|B|>|A|$
+\end_inset
+
+ and both are acyclic, this implies that 
+\begin_inset Formula $components(B)<components(A)$
+\end_inset
+
+.
+ It can't be that all 
+\begin_inset Formula $e\in B$
+\end_inset
+
+ are contained within the connected components of 
+\begin_inset Formula $A$
+\end_inset
+
+; there must be some 
+\begin_inset Formula $e\in B$
+\end_inset
+
+ that connects two components of 
+\begin_inset Formula $A$
+\end_inset
+
+, so we can choose this edge.
+ Note that this also implies that there is at least one way to add edges
+ from 
+\begin_inset Formula $B$
+\end_inset
+
+ to 
+\begin_inset Formula $A$
+\end_inset
+
+ such that 
+\begin_inset Formula $|B|=|A|$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Proof
+We prove the theorem by induction.
+ Let the inductive hypothesis for step 
+\begin_inset Formula $i$
+\end_inset
+
+ be that there exists a maximum weight forest 
+\begin_inset Formula $B_{i}^{*}$
+\end_inset
+
+ which 
+\begin_inset Quotes eld
+\end_inset
+
+agrees
+\begin_inset Quotes erd
+\end_inset
+
+ with the algorithm's choices on 
+\begin_inset Formula $e_{1},\dots,e_{i}$
+\end_inset
+
+.
+ That is, if 
+\begin_inset Formula $B_{i}$
+\end_inset
+
+ is the algorithm's choices up to 
+\begin_inset Formula $i$
+\end_inset
+
+, then 
+\begin_inset Formula $B_{i}=B_{i}^{*}\cap\{e_{1},\dots,e_{i}\}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+Assume the inductive hypothesis is true for step 
+\begin_inset Formula $i-1$
+\end_inset
+
+ and consider step 
+\begin_inset Formula $i$
+\end_inset
+
+.
+ If 
+\begin_inset Formula $e\notin B_{i}$
+\end_inset
+
+, then 
+\begin_inset Formula $B_{i-1}\cup\{e_{i}\}$
+\end_inset
+
+ is cyclic.
+ Since 
+\begin_inset Formula $B_{i-1}\subseteq B_{i-1}^{*}$
+\end_inset
+
+, then 
+\begin_inset Formula $e_{i}\notin B_{i-1}^{*}$
+\end_inset
+
+ by property 2.
+ So, take 
+\begin_inset Formula $B_{i}^{*}=B_{i-1}^{*}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+If 
+\begin_inset Formula $e_{i}\in B_{i}$
+\end_inset
+
+ and 
+\begin_inset Formula $e_{i}\notin B_{i-1}^{*}$
+\end_inset
+
+, then we build 
+\begin_inset Formula $B_{i}^{*}$
+\end_inset
+
+ by repeatedly extending 
+\begin_inset Formula $B_{i}$
+\end_inset
+
+ using 
+\begin_inset Formula $B_{i-1}^{*}$
+\end_inset
+
+ by property 3.
+ Recall that 
+\begin_inset Formula $B_{i}$
+\end_inset
+
+ agrees with 
+\begin_inset Formula $B_{i-1}^{*}$
+\end_inset
+
+ on the first 
+\begin_inset Formula $i-1$
+\end_inset
+
+ edges.
+ So, 
+\begin_inset Formula $B_{i}^{*}=B_{i-1}^{*}\cup\{e_{i}\}\setminus\{e_{k}\}$
+\end_inset
+
+ for some 
+\begin_inset Formula $k>i$
+\end_inset
+
+.
+ Since the edges are sorted in descending order of weight, we exchanged
+ a lower weight edge for an edge of equal or greater weight, so 
+\begin_inset Formula $B_{i}^{*}$
+\end_inset
+
+ must be optimal.
+ Therefore the greedy algorithm achieves the optimal solution at termination.
+\end_layout
+
+\begin_layout Subsection
+Types of Matroids
+\end_layout
+
+\begin_layout Standard
+Note that to prove optimality of the greedy algorithm, all we needed were
+ the 3 key properties of the set system 
+\begin_inset Formula $\mathcal{M}=(\mathcal{X},\mathcal{I})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\emptyset\in\mathcal{I}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+If 
+\begin_inset Formula $A\in\mathcal{I}$
+\end_inset
+
+ and 
+\begin_inset Formula $B\subseteq A$
+\end_inset
+
+, then 
+\begin_inset Formula $B\in\mathcal{I}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+If 
+\begin_inset Formula $A,B\in\mathcal{I}$
+\end_inset
+
+ and 
+\begin_inset Formula $|B|>|A|$
+\end_inset
+
+, then 
+\begin_inset Formula $\exists e\in B\setminus A$
+\end_inset
+
+ such that 
+\begin_inset Formula $A\cup\{e\}\in\mathcal{I}$
+\end_inset
+
+.
+ Recall that this implies that at least one way to add elements from 
+\begin_inset Formula $B$
+\end_inset
+
+ to 
+\begin_inset Formula $A$
+\end_inset
+
+ such that 
+\begin_inset Formula $|B|=|A|$
+\end_inset
+
+.
+ This is the most important property of a matroid, and is called the 
+\series bold
+exchange property
+\series default
+.
+\end_layout
+
+\begin_layout Standard
+These are called the 
+\series bold
+matroid axioms 
+\series default
+and the set system 
+\begin_inset Formula $\mathcal{M}$
+\end_inset
+
+ is called a matroid if the axioms hold in the set system.
+ In the previous section, we analyzed the matroid where 
+\begin_inset Formula $\mathcal{X}=E$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathcal{I}=\{\text{forests}\}$
+\end_inset
+
+, called the graphic matroid.
+ Some other common matroids include:
+\end_layout
+
+\begin_layout Itemize
+Linear matroid: 
+\begin_inset Formula $\mathcal{X}=\{\boldsymbol{v}_{1},\dots,\boldsymbol{v}_{m}\}\in\mathbb{R}^{n}$
+\end_inset
+
+ and 
+\begin_inset Formula $S\in\mathcal{I}$
+\end_inset
+
+ if all 
+\begin_inset Formula $\boldsymbol{v}_{i}\in S$
+\end_inset
+
+ are linearly independent.
+ The matroid axioms are:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Empty set is linearly independent
+\end_layout
+
+\begin_layout Enumerate
+Every subset of a linearly independent set is linearly independent
+\end_layout
+
+\begin_layout Enumerate
+All spans of 
+\begin_inset Formula $\mathbb{R}^{n}$
+\end_inset
+
+ have size 
+\begin_inset Formula $n$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Uniform Matroid: 
+\begin_inset Formula $\mathcal{X}=\{1,\dots,n\}$
+\end_inset
+
+ and 
+\begin_inset Formula $S\in\mathcal{I}$
+\end_inset
+
+ if 
+\begin_inset Formula $|S|\leq k$
+\end_inset
+
+ for a given 
+\begin_inset Formula $k\geq0$
+\end_inset
+
+.
+ The matroid axioms are:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Empty set has size 
+\begin_inset Formula $\geq0$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Removing an element from a set does not increase its size
+\end_layout
+
+\begin_layout Enumerate
+If 
+\begin_inset Formula $|S|\leq|T|\leq k$
+\end_inset
+
+, then 
+\begin_inset Formula $\exists e\in T\notin S$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Partition Matroid: 
+\begin_inset Formula $\mathcal{X}=X_{1}\cup\dots\cup X_{m}$
+\end_inset
+
+ and 
+\begin_inset Formula $S\in\mathcal{I}$
+\end_inset
+
+ if 
+\begin_inset Formula $S$
+\end_inset
+
+ contains 
+\begin_inset Formula $\leq k_{j}$
+\end_inset
+
+ elements from each 
+\begin_inset Formula $X_{j}$
+\end_inset
+
+.
+ This is just a generalization of the Uniform Matroid.
+\end_layout
+
+\begin_layout Itemize
+Transversal Matroid: Given a bipartite graph 
+\begin_inset Formula $E\subseteq L\times R$
+\end_inset
+
+, we have 
+\begin_inset Formula $\mathcal{X}=L$
+\end_inset
+
+ and 
+\begin_inset Formula $S\in\mathcal{I}$
+\end_inset
+
+ if there exists a bipartite matching on the nodes in 
+\begin_inset Formula $S$
+\end_inset
+
+.
+ Note that we don't actually encode the edges in the matroid.
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Empty set is a matching
+\end_layout
+
+\begin_layout Enumerate
+Removing a node preserves the matchings on the other nodes
+\end_layout
+
+\begin_layout Enumerate
+Like in the Ford-Fulkerson Algorithm, there is an augmenting path which
+ can extend the matching of 
+\begin_inset Formula $S$
+\end_inset
+
+ to some 
+\begin_inset Formula $x\in T\setminus S$
+\end_inset
+
+.
+ This allows us to iteratively build a maximum matching, which is an easy
+ proof of the Ford-Fulkerson Algorithm on bipartite graphs.
+\end_layout
+
+\end_deeper
+\begin_layout Subsection
+Terminology and Properties
+\end_layout
+
+\begin_layout Theorem
+The greedy algorithm returns the maximum weight feasible set for every choice
+ of weights if and only if the set system 
+\begin_inset Formula $\mathcal{M}=(\mathcal{X},\mathcal{I})$
+\end_inset
+
+ is a matroid.
+ Thus, matroids fully characterize the class of problems where the greedy
+ algorithm is successful.
+ Note that to implement the greedy algorithm on a matroid, we jut need an
+ independence oracle to check whether the next highest weight element is
+ in 
+\begin_inset Formula $\mathcal{I}$
+\end_inset
+
+ or not.
+ Then, the greedy algorithm runs in time 
+\begin_inset Formula $\mathcal{O}(n\log n)+nT$
+\end_inset
+
+ where 
+\begin_inset Formula $T$
+\end_inset
+
+ is the runtime of the oracle.
+\end_layout
+
+\begin_layout Standard
+Consider a matroid 
+\begin_inset Formula $\mathcal{M}=(\mathcal{X},\mathcal{I})$
+\end_inset
+
+.
+ We introduce some terminology:
+\end_layout
+
+\begin_layout Itemize
+A set 
+\begin_inset Formula $A\in\mathcal{I}$
+\end_inset
+
+ is called an 
+\series bold
+independent set
+\series default
+ of the matroid
+\end_layout
+
+\begin_layout Itemize
+The maximal independent set in 
+\begin_inset Formula $\mathcal{M}$
+\end_inset
+
+ is called a 
+\series bold
+base
+\series default
+ of 
+\begin_inset Formula $\mathcal{M}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+The maximal independent subset of 
+\begin_inset Formula $S\subseteq\mathcal{X}$
+\end_inset
+
+ is called the 
+\series bold
+base
+\series default
+ of 
+\begin_inset Formula $S$
+\end_inset
+
+ in 
+\begin_inset Formula $\mathcal{M}$
+\end_inset
+
+; that is, it is the base of 
+\begin_inset Formula $\mathcal{M}$
+\end_inset
+
+ after deleting 
+\begin_inset Formula $\bar{S}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+The minimal dependent set of 
+\begin_inset Formula $\mathcal{X}$
+\end_inset
+
+ is called a 
+\series bold
+circuit
+\series default
+; that is, a set where deleting one element creates an independent set
+\end_layout
+
+\begin_layout Lemma
+For every 
+\begin_inset Formula $S\subseteq\mathcal{X}$
+\end_inset
+
+, all bases of 
+\begin_inset Formula $S$
+\end_inset
+
+ in 
+\begin_inset Formula $\mathcal{M}$
+\end_inset
+
+ have equal cardinality, called it's 
+\series bold
+rank
+\series default
+.
+ This follows from the exchange property.
+ One example is that all bases of a subspace have rank equal to the dimension
+ of the subspace.
+\end_layout
+
+\begin_layout Standard
+We can define the 
+\series bold
+rank function
+\series default
+ of 
+\begin_inset Formula $S$
+\end_inset
+
+ with respect to 
+\begin_inset Formula $\mathcal{M}$
+\end_inset
+
+ as 
+\begin_inset Formula $rank_{\mathcal{M}}(S):2^{\mathcal{X}}\rightarrow\mathbb{N}$
+\end_inset
+
+.
+ Given 
+\begin_inset Formula $S\subseteq\mathcal{X}$
+\end_inset
+
+, 
+\begin_inset Formula $span(S)=\{i\in\mathcal{X}:rank(S)=rank(S\cup\{i\})\}$
+\end_inset
+
+.
+ That is, 
+\begin_inset Formula $S$
+\end_inset
+
+ itself plus elements which would form a circuit if added to the base of
+ 
+\begin_inset Formula $S$
+\end_inset
+
+.
+ Note that 
+\begin_inset Formula $i\in\{1,\dots,n\}$
+\end_inset
+
+ is selected by the greedy algorithm if and only if 
+\begin_inset Formula $i\notin span(\{1,\dots,i-1\})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Operations Preserving Matroidness
+\end_layout
+
+\begin_layout Standard
+It is interesting to study operations preserving matroidness because they
+ provide insight into complex problems.
+ Below we detail some simple operations which preserve matroidness:
+\end_layout
+
+\begin_layout Enumerate
+Deletion 
+\begin_inset Formula $(\mathcal{M}=\mathcal{M}\setminus B)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Restriction 
+\begin_inset Formula $(\mathcal{M}=\mathcal{M}\setminus\bar{B})$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Disjoint union of 
+\begin_inset Formula $n$
+\end_inset
+
+ matroids with disjoint 
+\begin_inset Formula $\mathcal{X}_{i}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Contraction 
+\begin_inset Formula $(\mathcal{M}=\mathcal{M}/B)$
+\end_inset
+
+; here we can imagine 
+\begin_inset Formula $B$
+\end_inset
+
+ always included and consider independence relative to 
+\begin_inset Formula $B$
+\end_inset
+
+, such as when we contract nodes into a supernode in a graphic matroid
+\end_layout
+
+\begin_layout Standard
+There are others, including truncation, dual, and union, which we will cover
+ later.
+\end_layout
+
+\end_body
+\end_document

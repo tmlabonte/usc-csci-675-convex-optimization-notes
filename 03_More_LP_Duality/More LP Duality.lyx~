@@ -1,0 +1,598 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\begin_modules
+theorems-ams
+algolyx
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date true
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 1in
+\topmargin 1in
+\rightmargin 1in
+\bottommargin 1in
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip medskip
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+More LP Duality
+\end_layout
+
+\begin_layout Section
+Analysis of LPs
+\end_layout
+
+\begin_layout Subsection
+Recovery of the Primal
+\end_layout
+
+\begin_layout Standard
+Complementary slackness allows us to recover the primal optimal from the
+ dual optimal, and vice versa.
+ To show this, let us first assume 
+\series bold
+non-degeneracy
+\series default
+: At every vertex of the primal [dual], there exists exactly 
+\begin_inset Formula $n$
+\end_inset
+
+ [
+\begin_inset Formula $m$
+\end_inset
+
+] tight constraints which are linearly independent.
+ Under this condition, the primal LP has 
+\begin_inset Formula $n$
+\end_inset
+
+ variables, 
+\begin_inset Formula $m$
+\end_inset
+
+ generic constraints, and 
+\begin_inset Formula $n$
+\end_inset
+
+ non-negativity constraints (vice versa for the dual).
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $\boldsymbol{y}$
+\end_inset
+
+ be the dual optimal.
+ Then, by non-degeneracy, exactly 
+\begin_inset Formula $m$
+\end_inset
+
+ of the 
+\begin_inset Formula $m+n$
+\end_inset
+
+ total dual constraints are tight at 
+\begin_inset Formula $\boldsymbol{y}$
+\end_inset
+
+.
+ So, 
+\begin_inset Formula $n$
+\end_inset
+
+ dual constraints must be loose, implying that 
+\begin_inset Formula $n$
+\end_inset
+
+ primal constraints are tight.
+ This creates a linear system of equations which can be solved to find the
+ optimal primal 
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Sensitivity Analysis
+\end_layout
+
+\begin_layout Standard
+Oftentimes, we want to measure how the LP optimum changes with parameters
+ 
+\begin_inset Formula $\boldsymbol{b}$
+\end_inset
+
+ and 
+\begin_inset Formula $\boldsymbol{c}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $OPT=OPT({\bf A},\boldsymbol{b},\boldsymbol{c})$
+\end_inset
+
+ be the optimal value of the LP.
+ Then, when LP solutions 
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+ and 
+\begin_inset Formula $\boldsymbol{y}$
+\end_inset
+
+ are unique, 
+\begin_inset Formula $\frac{\partial OPT}{\partial c_{j}}=x_{j}$
+\end_inset
+
+ and 
+\begin_inset Formula $\frac{\partial OPT}{\partial b_{i}}=y_{i}$
+\end_inset
+
+.
+ In the economic interpretation, this shows that a small increase 
+\begin_inset Formula $\delta$
+\end_inset
+
+ in the production parameter 
+\begin_inset Formula $c_{j}$
+\end_inset
+
+ increases profit by 
+\begin_inset Formula $\delta x_{j}$
+\end_inset
+
+.
+ Furthermore, a small increase 
+\begin_inset Formula $\delta$
+\end_inset
+
+ in the material availability parameter 
+\begin_inset Formula $b_{i}$
+\end_inset
+
+ increases the price by 
+\begin_inset Formula $\delta y_{i}$
+\end_inset
+
+.
+ Thus 
+\begin_inset Formula $x_{j}$
+\end_inset
+
+ measures the impact of product 
+\begin_inset Formula $j$
+\end_inset
+
+ on profit, and 
+\begin_inset Formula $y_{i}$
+\end_inset
+
+ measures the impact of the amount of material 
+\begin_inset Formula $i$
+\end_inset
+
+ available on its price.
+\end_layout
+
+\begin_layout Section
+Examples of Duality
+\end_layout
+
+\begin_layout Subsection
+Shortest Path
+\end_layout
+
+\begin_layout Standard
+Duality often provides insights into a problem that we would not have obtained
+ otherwise, even in simple cases.
+ For example, consider the shortest path problem: given 
+\begin_inset Formula $G=(V,E)$
+\end_inset
+
+ where edge 
+\begin_inset Formula $e$
+\end_inset
+
+ has length 
+\begin_inset Formula $\ell_{e}\in\mathbb{R_{+}}$
+\end_inset
+
+, find the minimum length path from 
+\begin_inset Formula $s\rightarrow t$
+\end_inset
+
+.
+ The primal LP solves this problem by sending one unit of flow from 
+\begin_inset Formula $s\rightarrow t$
+\end_inset
+
+, from which we can read off the shortest path.
+ The dual LP solves this problem by 
+\begin_inset Quotes eld
+\end_inset
+
+stretching
+\begin_inset Quotes erd
+\end_inset
+
+ the graph across the 
+\begin_inset Formula $s\rightarrow t$
+\end_inset
+
+ axis as far as possible such that no edge breaks; then the shortest path
+ is the first path to become taut.
+\end_layout
+
+\begin_layout Subsection
+Two-Player Zero Sum Games
+\end_layout
+
+\begin_layout Section
+Proof of Strong Duality
+\end_layout
+
+\begin_layout Subsection
+Background
+\end_layout
+
+\begin_layout Theorem
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+[Separating Hyperplane Theorem]
+\end_layout
+
+\end_inset
+
+If 
+\begin_inset Formula $A,B\in\mathbb{R}^{n}$
+\end_inset
+
+ are disjoint convex sets, then there is a hyperplane separating them.
+ If both are closed and at least one is compact, then there is a hyperplane
+ strictly separating them.
+\end_layout
+
+\begin_layout Standard
+The proof of the Separating Hyperplane Theorem is a bit involved, so we
+ will not show it here.
+ One can see the difference between the two cases by considering the example
+ where 
+\begin_inset Formula $A$
+\end_inset
+
+ is the set of everything below the 
+\begin_inset Formula $x$
+\end_inset
+
+ axis and 
+\begin_inset Formula $B$
+\end_inset
+
+ is the set of everything above the line 
+\begin_inset Formula $y=x^{-1}$
+\end_inset
+
+.
+ Since these sets meet at infinity, it is impossible to find a strictly
+ separating hyperplane; however, if either set does not stretch to infinity,
+ then a strictly separating hyperplane is simply the 
+\begin_inset Formula $x$
+\end_inset
+
+ axis.
+\end_layout
+
+\begin_layout Definition
+A 
+\series bold
+convex cone
+\series default
+ is a convex set which is closed under non-negative scaling and convex combinati
+ons.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Definition
+The convex cone generated by 
+\begin_inset Formula $\boldsymbol{u_{1}},\dots,\boldsymbol{u_{m}}\in\mathbb{R}^{n}$
+\end_inset
+
+ is the set of all their conic combinations (i.e., non-negative linear combination
+s of variables).
+\begin_inset Formula 
+\[
+Cone(\boldsymbol{u_{1}},\dots,\boldsymbol{u_{m}})=\bigg\{\sum_{i=1}^{m}\alpha_{i}\boldsymbol{u_{i}}:\alpha_{i}\geq0\text{ }\forall i\bigg\}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Lemma
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+[Farkas' Lemma]
+\end_layout
+
+\end_inset
+
+Let 
+\begin_inset Formula $\mathcal{C}$
+\end_inset
+
+ be the convex cone generated by 
+\begin_inset Formula $\boldsymbol{u_{1}},\dots,\boldsymbol{u_{m}}\in\mathbb{R}^{n}$
+\end_inset
+
+ and let 
+\begin_inset Formula $\boldsymbol{w}\in\mathbb{R}^{n}$
+\end_inset
+
+.
+ Exactly one of the below is true:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+\begin_inset Formula $\boldsymbol{w}\in\mathcal{C}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+There exists a separating hyperplane between 
+\begin_inset Formula $\mathcal{C}$
+\end_inset
+
+ and 
+\series bold
+\shape italic
+
+\begin_inset Formula $\boldsymbol{w}$
+\end_inset
+
+ 
+\series default
+which touches 
+\begin_inset Formula $\mathcal{C}$
+\end_inset
+
+.
+ That is, 
+\begin_inset Formula $\exists\boldsymbol{z}\in\mathbb{R}^{n}$
+\end_inset
+
+ such that 
+\begin_inset Formula $\boldsymbol{z}\cdot\boldsymbol{u_{i}}\leq0\text{ }\forall i$
+\end_inset
+
+ and 
+\begin_inset Formula $\boldsymbol{z}\cdot\boldsymbol{w}>0$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Corollary
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+[Theorem of the Alternative]
+\end_layout
+
+\end_inset
+
+Let 
+\begin_inset Formula ${\bf U}=[\boldsymbol{u_{1}},\dots,\boldsymbol{u_{m}}]$
+\end_inset
+
+ and let 
+\begin_inset Formula $\boldsymbol{w}\in\mathbb{R}^{n}$
+\end_inset
+
+.
+ Exactly one of the below is true:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+\begin_inset Formula ${\bf U}\boldsymbol{y}=\boldsymbol{w},\boldsymbol{y}\geq0$
+\end_inset
+
+ has a solution.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula ${\bf U}^{\intercal}\boldsymbol{z}\leq0,\boldsymbol{z}^{\intercal}\boldsymbol{w}>0$
+\end_inset
+
+ has a solution.
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+Farkas' Lemma and the Theorem of the Alternative say the same thing, but
+ the former is the geometric version and the latter is algebraic.
+ We'll use the Theorem of the Alternative for our proof because it conveniently
+ casts the 
+\begin_inset Formula $\boldsymbol{u}_{i}$
+\end_inset
+
+ vectors as a matrix.
+ 
+\end_layout
+
+\begin_layout Subsection
+Proof
+\end_layout
+
+\begin_layout Standard
+To prove strong duality, we'll first show that either 
+\begin_inset Formula $OPT(dual)\leq v$
+\end_inset
+
+ or 
+\begin_inset Formula $OPT(primal)>v$
+\end_inset
+
+ for some 
+\begin_inset Formula $v\in\mathbb{R}$
+\end_inset
+
+.
+ Combined with weak duality, which says that 
+\begin_inset Formula $OPT(dual)\geq OPT(primal)$
+\end_inset
+
+, this proves that 
+\begin_inset Formula $OPT(primal)=OPT(dual)$
+\end_inset
+
+.
+ Consider the primal LP:
+\begin_inset Formula 
+\begin{align*}
+\max\text{ } & \boldsymbol{c}^{\intercal}\boldsymbol{x}\\
+\text{s.t. } & {\bf A}\boldsymbol{x}\leq\boldsymbol{b}
+\end{align*}
+
+\end_inset
+
+And the corresponding dual LP:
+\begin_inset Formula 
+\begin{align*}
+\min\text{ } & \boldsymbol{b}^{\intercal}\boldsymbol{y}\\
+\text{s.t.} & {\bf A}^{\intercal}\boldsymbol{y}=\boldsymbol{c}\\
+ & \boldsymbol{y}\geq0
+\end{align*}
+
+\end_inset
+
+Given 
+\begin_inset Formula $v\in\mathbb{R}$
+\end_inset
+
+, by the Theorem of the Alternative exactly one of the below is true:
+\end_layout
+
+\begin_layout Enumerate
+The following system has a solution:
+\begin_inset Formula 
+\begin{align*}
+\bigg(\begin{array}{cc}
+{\bf A}^{\intercal} & 0\\
+\boldsymbol{b}^{\intercal} & 1
+\end{array}\bigg)\boldsymbol{z} & =\bigg(\begin{array}{c}
+\boldsymbol{c}\\
+v
+\end{array}\bigg)\\
+\boldsymbol{z} & \geq0
+\end{align*}
+
+\end_inset
+
+Let 
+\begin_inset Formula $\boldsymbol{y}\in\mathbb{R}_{+}^{m},\delta\in\mathbb{R}_{+}$
+\end_inset
+
+ such that 
+\begin_inset Formula $\boldsymbol{z}=\big(\begin{array}{c}
+\boldsymbol{y}\\
+\delta
+\end{array}\big)$
+\end_inset
+
+.
+\end_layout
+
+\end_body
+\end_document

@@ -1,0 +1,772 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\begin_modules
+theorems-ams
+algolyx
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date true
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 1in
+\topmargin 1in
+\rightmargin 1in
+\bottommargin 1in
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip medskip
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Complexity of Convex Optimization
+\end_layout
+
+\begin_layout Section
+Solvability of Convex Optimization
+\end_layout
+
+\begin_layout Standard
+Recall the convex optimization problem:
+\begin_inset Formula 
+\begin{align*}
+\min\text{ } & f(\boldsymbol{x})\\
+\text{s.t. } & \boldsymbol{x}\in\mathcal{X}
+\end{align*}
+
+\end_inset
+
+Where 
+\begin_inset Formula $\mathcal{X}\in\mathbb{R}^{n}$
+\end_inset
+
+ is convex and closed, and 
+\begin_inset Formula $f:\mathbb{R}^{n}\rightarrow\mathbb{R}$
+\end_inset
+
+ is also convex.
+ Denote the length (in bits) of the description of the problem by 
+\begin_inset Formula $\langle I\rangle$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+We say that an algorithm 
+\series bold
+weakly solves
+\series default
+ a convex optimization problem in polynomial time if the algorithm:
+\end_layout
+
+\begin_layout Itemize
+Takes an approximation parameter 
+\begin_inset Formula $\epsilon>0$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Terminates in time 
+\begin_inset Formula $poly(\langle I\rangle,n,\log\frac{1}{\epsilon})$
+\end_inset
+
+.
+ Note that this is a pretty good bound, because it is logarithmic in the
+ bit precision.
+\end_layout
+
+\begin_layout Itemize
+Returns an 
+\begin_inset Formula $\epsilon$
+\end_inset
+
+-optimal 
+\begin_inset Formula $\boldsymbol{x}\in\mathcal{X}$
+\end_inset
+
+, that is an 
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+ with
+\begin_inset Formula 
+\[
+f(\boldsymbol{x})\leq\min_{\boldsymbol{y}\in\mathcal{X}}f(\boldsymbol{y})+\epsilon[\max_{\boldsymbol{y}\in\mathcal{X}}f(\boldsymbol{y})-\min_{\boldsymbol{y}\in\mathcal{X}}f(\boldsymbol{y})]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Theorem
+Consider a family 
+\begin_inset Formula $\Pi$
+\end_inset
+
+ of convex optimization problems 
+\begin_inset Formula $I=(f,\mathcal{X})$
+\end_inset
+
+ admitting the following operations in polynomial time:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+A separation oracle for 
+\begin_inset Formula $\mathcal{X}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+A first-order oracle for 
+\begin_inset Formula $f$
+\end_inset
+
+, that is an oracle which evaluates 
+\begin_inset Formula $f(\boldsymbol{x})$
+\end_inset
+
+ and 
+\begin_inset Formula $\nabla f(\boldsymbol{x})$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+An algorithm which computes a starting ellipsoid 
+\begin_inset Formula $E\supseteq\mathcal{X}$
+\end_inset
+
+ with 
+\begin_inset Formula $vol(E)/vol(\mathcal{X})=\mathcal{O}(\exp(\langle I\rangle,n))$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Theorem
+Then, there is a polynomial time algorithm which weakly solves 
+\begin_inset Formula $\Pi$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+By reduction to the Ellipsoid Algorithm.
+ We start with a simplifying assumption, then prove the general case.
+ Let's assume that we know 
+\begin_inset Formula $\min_{\boldsymbol{y}\in\mathcal{X}}f(\boldsymbol{y})$
+\end_inset
+
+ and 
+\begin_inset Formula $\max_{\boldsymbol{y}\in\mathcal{X}}f(\boldsymbol{y})$
+\end_inset
+
+; we can then rescale them to be 0 and 1.
+ Then, our convex optimization problem becomes the convex feasibility problem:
+\begin_inset Formula 
+\begin{align*}
+\text{find } & \boldsymbol{x}\\
+\text{s.t. } & \boldsymbol{x}\in\mathcal{X}\\
+ & f(\boldsymbol{x})\leq\epsilon
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Note that the separation oracle for the new feasible set 
+\begin_inset Formula $K=\{\boldsymbol{x}\in\mathcal{X}:f(\boldsymbol{x})\leq\epsilon\}$
+\end_inset
+
+ can be obtained from the separation oracle for 
+\begin_inset Formula $\mathcal{X}$
+\end_inset
+
+ and the first-order oracle for 
+\begin_inset Formula $f$
+\end_inset
+
+, and the starting ellipsoid is simply 
+\begin_inset Formula $E$
+\end_inset
+
+ because 
+\begin_inset Formula $K\subseteq\mathcal{X}\subseteq E$
+\end_inset
+
+.
+ But, we need to guarantee that 
+\begin_inset Formula $vol(E)/vol(K)\leq\exp(\langle I\rangle,n,\log\frac{1}{\epsilon})$
+\end_inset
+
+.
+\end_layout
+
+\begin_deeper
+\begin_layout Lemma
+\begin_inset Formula $vol(K)\geq\epsilon^{n}vol(\mathcal{X})$
+\end_inset
+
+.
+ This shows that 
+\begin_inset Formula $vol(K)$
+\end_inset
+
+ is only exponentially smaller than 
+\begin_inset Formula $vol(\mathcal{X})$
+\end_inset
+
+ and therefore 
+\begin_inset Formula $vol(E)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+Assume wlog 
+\begin_inset Formula $\boldsymbol{0}\in\mathcal{X}$
+\end_inset
+
+, 
+\begin_inset Formula $f(\boldsymbol{0})=\min_{\boldsymbol{x}\in\mathcal{X}}f(\boldsymbol{x})=0$
+\end_inset
+
+.
+ Consider scaling 
+\begin_inset Formula $\mathcal{X}$
+\end_inset
+
+ by 
+\begin_inset Formula $\epsilon$
+\end_inset
+
+ to obtain 
+\begin_inset Formula $\epsilon\mathcal{X}$
+\end_inset
+
+.
+ Then 
+\begin_inset Formula $vol(\epsilon\mathcal{X})=\epsilon^{n}vol(\mathcal{X})$
+\end_inset
+
+ because 
+\begin_inset Formula $\det(\left[\begin{array}{ccc}
+\epsilon & 0 & 0\\
+0 & \ddots & 0\\
+0 & 0 & \epsilon
+\end{array}\right])=\epsilon^{n}$
+\end_inset
+
+.
+ Now, we show that 
+\begin_inset Formula $\epsilon\mathcal{X}\subseteq K$
+\end_inset
+
+ by showing that 
+\begin_inset Formula $f(\boldsymbol{y})\leq\epsilon\text{ }\forall\boldsymbol{y}\in\epsilon\mathcal{X}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\boldsymbol{y}=\epsilon\boldsymbol{x}$
+\end_inset
+
+ for some 
+\begin_inset Formula $\boldsymbol{x}\in\mathcal{X}$
+\end_inset
+
+.
+ Then by Jensen's Inequality,
+\begin_inset Formula 
+\[
+f(\boldsymbol{y})=f(\epsilon\boldsymbol{x}+(1-\epsilon)\boldsymbol{0})\leq\epsilon f(\boldsymbol{x})+(1-\epsilon)f(\boldsymbol{0})\leq\epsilon
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Proof
+Since we established the lemma, we can just use the Ellipsoid Algorithm
+ to solve the feasibility problem!
+\end_layout
+
+\begin_layout Proof
+Now consider the general case.
+ Let 
+\begin_inset Formula $L=\min_{\boldsymbol{y}\in\mathcal{X}}f(\boldsymbol{y})$
+\end_inset
+
+ and 
+\begin_inset Formula $H=\max_{\boldsymbol{y}\in\mathcal{X}}f(\boldsymbol{y})$
+\end_inset
+
+.
+ If we know the target 
+\begin_inset Formula $T=L+\epsilon[H-L]$
+\end_inset
+
+, we can reduce to solving the feasibility problem over 
+\begin_inset Formula $K=\{\boldsymbol{x}\in\mathcal{X}:f(\boldsymbol{x})\leq T\}$
+\end_inset
+
+.
+\end_layout
+
+\begin_deeper
+\begin_layout Remark
+We don't need to know 
+\begin_inset Formula $T$
+\end_inset
+
+, 
+\begin_inset Formula $H$
+\end_inset
+
+, or 
+\begin_inset Formula $L$
+\end_inset
+
+ to simulate the execution of the Ellipsoid Algorithm on 
+\begin_inset Formula $K$
+\end_inset
+
+!
+\end_layout
+
+\end_deeper
+\begin_layout Proof
+Our convex feasibility problem is:
+\begin_inset Formula 
+\begin{align*}
+\text{find } & \boldsymbol{x}\\
+\text{s.t. } & \boldsymbol{x}\in\mathcal{X}\\
+ & f(\boldsymbol{x})\leq T
+\end{align*}
+
+\end_inset
+
+We can simulate the execution of the Ellipsoid Algorithm on 
+\begin_inset Formula $K$
+\end_inset
+
+ for a polynomial number of iterations, after which we will have a point
+ in 
+\begin_inset Formula $K$
+\end_inset
+
+.
+ Note that the action of the algorithm at each step other than the last
+ can be described independently of 
+\begin_inset Formula $T$
+\end_inset
+
+: if the center of the ellipsoid 
+\begin_inset Formula $\boldsymbol{c}\notin\mathcal{X}$
+\end_inset
+
+, we obtain a separating hyperplane with 
+\begin_inset Formula $\mathcal{X}$
+\end_inset
+
+; otherwise, we can use 
+\begin_inset Formula $\nabla f(\boldsymbol{c})$
+\end_inset
+
+.
+ We only cannot directly check 
+\begin_inset Formula $\boldsymbol{c}\in K$
+\end_inset
+
+.
+ Thus, 
+\begin_inset Formula $T$
+\end_inset
+
+ is only necessary for describing when to stop, but since we know the Ellipsoid
+ Algorithm terminates after a polynomial number of iterations, we can just
+ run it for 
+\begin_inset Quotes eld
+\end_inset
+
+long enough
+\begin_inset Quotes erd
+\end_inset
+
+ and look back at the transcript to obtain a point 
+\begin_inset Formula $\boldsymbol{x}\in K$
+\end_inset
+
+.
+ Thus we can find an 
+\begin_inset Formula $\epsilon$
+\end_inset
+
+-optimal solution to the convex program in polynomial time.
+\end_layout
+
+\begin_layout Section
+Complexity of LP
+\end_layout
+
+\begin_layout Standard
+Recall the LP problem:
+\begin_inset Formula 
+\begin{align*}
+\max\text{ } & \boldsymbol{c}^{\intercal}\boldsymbol{x}\\
+\text{s.t. } & {\bf A}\boldsymbol{x}\preceq\boldsymbol{b}
+\end{align*}
+
+\end_inset
+
+Recall also that the optimal solution always occurs at a vertex by complementary
+ slackness.
+ Consider both explicit and implicit LPs; that is, we are either given 
+\begin_inset Formula ${\bf A}$
+\end_inset
+
+, 
+\begin_inset Formula $\boldsymbol{b}$
+\end_inset
+
+, and 
+\begin_inset Formula $\boldsymbol{c}$
+\end_inset
+
+ directly, or we are given 
+\begin_inset Formula $\boldsymbol{c}$
+\end_inset
+
+ and a separation oracle for 
+\begin_inset Formula ${\bf A}\boldsymbol{x}\preceq\boldsymbol{b}$
+\end_inset
+
+.
+ In the explicit case, we require runtime 
+\begin_inset Formula $poly(\langle{\bf A}\rangle,\langle\boldsymbol{b}\rangle,\langle\boldsymbol{c}\rangle)$
+\end_inset
+
+; in the implicit case, we require runtime polynomial in the bit complexity
+ of the individual entries of 
+\begin_inset Formula ${\bf A}$
+\end_inset
+
+, 
+\begin_inset Formula $\boldsymbol{b}$
+\end_inset
+
+, and 
+\begin_inset Formula $\boldsymbol{c}$
+\end_inset
+
+.
+ Note that this requires all numbers to be rational.
+\end_layout
+
+\begin_layout Theorem
+There exists a polynomial time algorithm for LPs represented explicitly.
+\end_layout
+
+\begin_layout Proof
+Using our result for convex programs, we need:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+A separation oracle for 
+\begin_inset Formula ${\bf A}\boldsymbol{x}\preceq\boldsymbol{b}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+A first-order oracle for 
+\begin_inset Formula $\boldsymbol{c}^{\intercal}\boldsymbol{x}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+A bounding ellipsoid with volume at most exponential relative to the feasible
+ polyhedron
+\end_layout
+
+\begin_layout Enumerate
+A method of 
+\begin_inset Quotes eld
+\end_inset
+
+rounding
+\begin_inset Quotes erd
+\end_inset
+
+ an optimal solution to an optimal vertex
+\end_layout
+
+\end_deeper
+\begin_layout Proof
+1 and 2 are trivially given.
+ The key to both 3 and 4 is the following lemma, which follows from Gaussian
+ Elimination:
+\end_layout
+
+\begin_deeper
+\begin_layout Lemma
+Let 
+\begin_inset Formula $\boldsymbol{v}$
+\end_inset
+
+ be a vertex of the feasible polyhedron.
+ It is the case that 
+\begin_inset Formula $\boldsymbol{v}$
+\end_inset
+
+ has polynomial bit complexity; that is, 
+\begin_inset Formula $\langle\boldsymbol{v}\rangle\leq M$
+\end_inset
+
+ where 
+\begin_inset Formula $M=\mathcal{O}(poly(\langle{\bf A}\rangle,\langle\boldsymbol{b}\rangle))$
+\end_inset
+
+.
+ In other words, the solution of a linear system has bit complexity polynomially
+ related to that of the equations of the system.
+\end_layout
+
+\end_deeper
+\begin_layout Proof
+For the bounding ellipsoid, we can take 
+\begin_inset Formula $E$
+\end_inset
+
+ to be all vertices in the box 
+\begin_inset Formula $-2^{M}\leq\boldsymbol{x}\leq2^{M}$
+\end_inset
+
+, which is then contained in an ellipsoid of volume exponential in 
+\begin_inset Formula $M$
+\end_inset
+
+ and 
+\begin_inset Formula $n$
+\end_inset
+
+.
+ To guarantee the lower bound, we have to add 
+\begin_inset Formula $\epsilon$
+\end_inset
+
+ to 
+\begin_inset Formula $\boldsymbol{b}$
+\end_inset
+
+, just to ensure that the polyhedron is of full dimension.
+\end_layout
+
+\begin_layout Proof
+For the rounding, note that if 
+\begin_inset Formula $\boldsymbol{y}$
+\end_inset
+
+ is 
+\begin_inset Formula $\epsilon$
+\end_inset
+
+-optimal for the 
+\begin_inset Formula $\epsilon$
+\end_inset
+
+-relaxed LP, then for sufficiently small 
+\begin_inset Formula $\epsilon$
+\end_inset
+
+ chosen carefully to polynomial in the description of the input, rounding
+ to the nearest 
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+ with 
+\begin_inset Formula $M$
+\end_inset
+
+ bits recovers the vertex.
+ The intuition here is easily described for integer programs: if you can
+ solve to the nearest 
+\begin_inset Formula $0.1$
+\end_inset
+
+, then you can easily round to the nearest integer solution.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Theorem
+Consider a family 
+\begin_inset Formula $\Pi$
+\end_inset
+
+ of LP problems 
+\begin_inset Formula $I=({\bf A},\boldsymbol{b},\boldsymbol{c})$
+\end_inset
+
+ admitting the following operations in 
+\begin_inset Formula $poly(\langle I\rangle,n)$
+\end_inset
+
+:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+A separation oracle for the feasible polyhedron 
+\begin_inset Formula ${\bf A}\boldsymbol{x}\preceq\boldsymbol{b}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Explicit access to 
+\begin_inset Formula $\boldsymbol{c}$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Theorem
+Moreover assume that every 
+\begin_inset Formula $\langle a_{ij}\rangle$
+\end_inset
+
+, 
+\begin_inset Formula $\langle b_{i}\rangle$
+\end_inset
+
+,
+\begin_inset Formula $\langle c_{j}\rangle$
+\end_inset
+
+ are at most 
+\begin_inset Formula $poly(\langle I\rangle,n)$
+\end_inset
+
+.
+ Then, there is a polynomial time algorithm for both the primals and duals
+ in 
+\begin_inset Formula $\Pi$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+We prove the primal and leave the dual for next lecture.
+ We need the same 4 elements as the above theorem, with the separation oracle
+ and first order given.
+ Since rounding to an optimal vertex is exactly the same as the last theorem,
+ we are only concerned about a bounding ellipsoid.
+ We can't just add 
+\begin_inset Formula $\epsilon$
+\end_inset
+
+ into the feasible polyhedron anymore, since we don't have an explicit descripti
+on, so we can't get a lower bound easily.
+ It turns out this is OK, but is very difficult to prove.
+ In essence, we need to figure out if the volume of the feasible polyhedron
+ is 0 and jump into a lower-dimensional subspace (related to simultaneous
+ Diophantine approximation).
+\end_layout
+
+\end_body
+\end_document

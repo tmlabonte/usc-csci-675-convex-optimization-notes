@@ -1,0 +1,545 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\begin_modules
+theorems-ams
+algolyx
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date true
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 1in
+\topmargin 1in
+\rightmargin 1in
+\bottommargin 1in
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip medskip
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+LP Duality
+\end_layout
+
+\begin_layout Section
+Introduction to Duality
+\end_layout
+
+\begin_layout Subsection
+Introduction
+\end_layout
+
+\begin_layout Standard
+Let the 
+\series bold
+primal
+\series default
+ LP be written in maximization standard form:
+\begin_inset Formula 
+\begin{align*}
+\max\text{ } & \boldsymbol{c}^{\intercal}\boldsymbol{x}\\
+\text{s.t. } & {\bf A}\boldsymbol{x}\leq\boldsymbol{b}\\
+ & \boldsymbol{x}\geq0
+\end{align*}
+
+\end_inset
+
+Then, the 
+\series bold
+dual
+\series default
+ LP is written in minimization standard form:
+\begin_inset Formula 
+\begin{align*}
+\min\text{ } & \boldsymbol{b}^{\intercal}\boldsymbol{y}\\
+\text{s.t. } & {\bf A}^{\intercal}\boldsymbol{y}\geq\boldsymbol{c}\\
+ & \boldsymbol{y}\geq0
+\end{align*}
+
+\end_inset
+
+Here, 
+\begin_inset Formula $y_{i}$
+\end_inset
+
+ is the dual variable corresponding to the primal constraint 
+\begin_inset Formula ${\bf A}_{i}\boldsymbol{x}\leq b_{i}$
+\end_inset
+
+, and 
+\begin_inset Formula ${\bf A}_{j}^{\intercal}\boldsymbol{y}\leq c_{j}$
+\end_inset
+
+ is the dual constraint corresponding to the primal variable 
+\series bold
+
+\begin_inset Formula $x_{j}$
+\end_inset
+
+
+\series default
+.
+ Note that the primal LP has constraints on the rows of 
+\begin_inset Formula ${\bf A}$
+\end_inset
+
+, while the dual LP has constraints on the columns of 
+\begin_inset Formula ${\bf A}$
+\end_inset
+
+.
+ In a nutshell, the dual variable measures the importance of the primal
+ constraint, and vice versa.
+ Furthermore, note that duality is an inversion: the dual of a dual is the
+ primal.
+\end_layout
+
+\begin_layout Subsection
+Interpretations
+\end_layout
+
+\begin_layout Subsubsection
+Economic Interpretation
+\end_layout
+
+\begin_layout Standard
+Recall the optimal production problem from the previous lecture.
+ Let the primal LP be from the perspective of the production facility, which
+ wants to maximize profit while staying within material constraints.
+ Then, the dual LP is from the perspective of an outside buyer who wants
+ to spend as little as possible while offering the facility an incentive
+ to sell their raw materials rather than create products.
+ The dual variable 
+\begin_inset Formula $y_{i}$
+\end_inset
+
+ represents the proposed price per unit of material 
+\series bold
+
+\begin_inset Formula $i$
+\end_inset
+
+
+\series default
+, corresponding to the primal constraint 
+\begin_inset Formula ${\bf A}_{i}\boldsymbol{x}\leq b_{i}$
+\end_inset
+
+ which represents the amount of material 
+\begin_inset Formula $i$
+\end_inset
+
+ available.
+ The primal variable 
+\begin_inset Formula $x_{j}$
+\end_inset
+
+ represents the amount of product 
+\begin_inset Formula $j$
+\end_inset
+
+ that the production facility plans to make, corresponding to the dual constrain
+t 
+\begin_inset Formula ${\bf A}_{j}^{\intercal}\boldsymbol{y}\leq c_{j}$
+\end_inset
+
+ which represents the possible profit of product 
+\begin_inset Formula $j$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
+Physical Interpretation
+\end_layout
+
+\begin_layout Standard
+Consider applying a force field 
+\begin_inset Formula $\boldsymbol{c}$
+\end_inset
+
+ to a ball inside a bounded polytope 
+\series bold
+
+\begin_inset Formula ${\bf A}\boldsymbol{x}\leq\boldsymbol{b}$
+\end_inset
+
+
+\series default
+.
+ Eventually, the ball will come to rest against the 
+\begin_inset Quotes eld
+\end_inset
+
+walls
+\begin_inset Quotes erd
+\end_inset
+
+ – that is, the hyperplanes created by the LP constraints.
+ At this point, the wall 
+\begin_inset Formula ${\bf A}_{i}\boldsymbol{x}\leq b_{i}$
+\end_inset
+
+ applies a force 
+\begin_inset Formula $-y_{i}{\bf A}_{i}$
+\end_inset
+
+ to the ball.
+ Since the ball is at rest, 
+\begin_inset Formula $\boldsymbol{c}^{\intercal}=\sum_{i}y_{i}{\bf A}_{i}=\boldsymbol{y}^{\intercal}{\bf A}$
+\end_inset
+
+ – exactly the dual constraint.
+ The objective function of the dual represents minimizing the work required
+ to bring the ball back to the origin.
+ We will see that, due to complementary slackness, only the walls adjacent
+ to the ball push back at optimality.
+\end_layout
+
+\begin_layout Section
+Forms of Duality
+\end_layout
+
+\begin_layout Subsection
+Weak Duality
+\end_layout
+
+\begin_layout Theorem
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+[Weak Duality]
+\end_layout
+
+\end_inset
+
+For every primal feasible 
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+ and dual feasible 
+\begin_inset Formula $\boldsymbol{y}$
+\end_inset
+
+, 
+\begin_inset Formula $\boldsymbol{c}^{\intercal}\boldsymbol{x}\leq\boldsymbol{b}^{\intercal}\boldsymbol{y}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+When the primal and dual constraints are both satisfied:
+\begin_inset Formula 
+\[
+\boldsymbol{c}^{\intercal}\boldsymbol{x}\leq\boldsymbol{y}^{\intercal}{\bf A}\boldsymbol{x}\leq\boldsymbol{y}^{\intercal}\boldsymbol{b}=\boldsymbol{b}^{\intercal}\boldsymbol{y}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Corollary
+If both LPs are feasible and bounded, the optimal primal solution is at
+ most the optimal dual solution.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Corollary
+The unboundedness of the primal implies the infeasiblity of the dual, and
+ vice versa.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Corollary
+If 
+\begin_inset Formula $\boldsymbol{x}^{*}$
+\end_inset
+
+ is a feasible primal solution and 
+\series bold
+
+\begin_inset Formula $\boldsymbol{y}^{*}$
+\end_inset
+
+ 
+\series default
+is a feasible dual solution, and 
+\begin_inset Formula $\boldsymbol{c}^{\intercal}\boldsymbol{x}^{*}=\boldsymbol{b}^{\intercal}\boldsymbol{y}^{*}$
+\end_inset
+
+, then both are optimal.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In the economic interpretation, 
+\series bold
+weak duality
+\series default
+ shows that if selling the raw materials is more profitable than making
+ any product, the money collected from the sale of the materials will be
+ greater than from the production profit.
+ In the physical interpretation, weak duality shows that the work required
+ to bring the ball back to the origin is at least the potential energy differenc
+e between the origin and the primal optimum.
+\end_layout
+
+\begin_layout Subsection
+Strong Duality
+\end_layout
+
+\begin_layout Theorem
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+[Strong Duality]
+\end_layout
+
+\end_inset
+
+If the primal LP is feasible and bounded, then so is the dual LP, and their
+ optimums are equivalent.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In the economic interpretation, 
+\series bold
+strong duality
+\series default
+ shows that the outside buyer can offer prices which would make the facility
+ indifferent between production and sale of raw materials.
+ In the physical interpretation, strong duality shows that there is an assignmen
+t of forces to the walls which will bring the ball back to the origin with
+ no wasted energy.
+\end_layout
+
+\begin_layout Standard
+For an informal proof, consider the physical interpretation.
+ When the ball is at rest, we expect only the walls touching the ball to
+ help push the ball back.
+ Thus 
+\begin_inset Formula ${\bf A}^{\intercal}\boldsymbol{y}=\boldsymbol{c}$
+\end_inset
+
+ and 
+\begin_inset Formula $y_{i}(b_{i}-a_{i}\boldsymbol{x})=0$
+\end_inset
+
+.
+ Then:
+\begin_inset Formula 
+\[
+\boldsymbol{y}^{\intercal}\boldsymbol{b}-\boldsymbol{c}^{\intercal}\boldsymbol{x}=\boldsymbol{y}^{\intercal}\boldsymbol{b}-\boldsymbol{y}^{\intercal}{\bf A}\boldsymbol{x}=\sum_{i}y_{i}(b_{i}-a_{i}\boldsymbol{x})=0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Complementary Slackness
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $s_{i}=(\boldsymbol{b}-{\bf A}\boldsymbol{x})_{i}$
+\end_inset
+
+ be the 
+\begin_inset Formula $i^{th}$
+\end_inset
+
+ primal slack variable and 
+\begin_inset Formula $t_{j}=({\bf A}^{\intercal}\boldsymbol{y}-\boldsymbol{c})_{j}$
+\end_inset
+
+ be the 
+\begin_inset Formula $j^{th}$
+\end_inset
+
+ dual slack variable.
+ Then, 
+\series bold
+complementary slackness
+\series default
+ says that a feasible 
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+ and 
+\begin_inset Formula $\boldsymbol{y}$
+\end_inset
+
+ are optimal if and only if 
+\begin_inset Formula $x_{j}t_{j}=0\text{ }\forall j\in[n]$
+\end_inset
+
+ and 
+\begin_inset Formula $y_{i}s_{i}=0\text{ }\forall i\in[m]$
+\end_inset
+
+.
+ That is, the dual variable is zero for the constraints which are not binding
+ at the optimal primal solution, and vice versa.
+ This is the meat behind the intuition that the dual variable measures the
+ importance of the primal constraint (and vice versa), because only the
+ 
+\begin_inset Quotes eld
+\end_inset
+
+important
+\begin_inset Quotes erd
+\end_inset
+
+ constraints will have nonzero dual variables associated with them.
+\end_layout
+
+\begin_layout Standard
+In the economic interpretation, complementary slackness shows that the facility
+ only produces products for which it is indifferent between sales and production
+, and only raw materials which are binding constraints on production are
+ pricing at greater than 0.
+ In the physical interpretation, complementary slackness shows that only
+ the walls adjacent to the ball push back on it.
+\end_layout
+
+\begin_layout Proof
+Given a primal and dual LP as in section 1, we can rewrite them using slack
+ variables.
+ We have the primal LP:
+\begin_inset Formula 
+\begin{align*}
+\max\text{ } & \boldsymbol{c}^{\intercal}\boldsymbol{x}\\
+\text{s.t. } & {\bf A}\boldsymbol{x}+\boldsymbol{s}=\boldsymbol{b}\\
+ & \boldsymbol{x}\geq0\\
+ & \boldsymbol{s}\geq0
+\end{align*}
+
+\end_inset
+
+And the corresponding dual LP:
+\begin_inset Formula 
+\begin{align*}
+\min\text{ } & \boldsymbol{b}^{\intercal}\boldsymbol{y}\\
+\text{s.t. } & {\bf A}^{\intercal}\boldsymbol{y}-\boldsymbol{t}=\boldsymbol{c}\\
+ & \boldsymbol{y}\geq0\\
+ & \boldsymbol{t}\geq0
+\end{align*}
+
+\end_inset
+
+Then:
+\begin_inset Formula 
+\[
+\boldsymbol{y}^{\intercal}\boldsymbol{b}-\boldsymbol{c}^{\intercal}\boldsymbol{x}=\boldsymbol{y}^{\intercal}({\bf A}\boldsymbol{x}+\boldsymbol{s})-(\boldsymbol{y}^{\intercal}{\bf A}-\boldsymbol{t}^{\intercal})\boldsymbol{x}=\boldsymbol{y}^{\intercal}\boldsymbol{s}-\boldsymbol{t}^{\intercal}\boldsymbol{x}
+\]
+
+\end_inset
+
+By strong duality, this equation must equal zero, which is only possible
+ if complementary slackness holds.
+\end_layout
+
+\end_body
+\end_document

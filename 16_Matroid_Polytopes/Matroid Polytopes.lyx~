@@ -1,0 +1,623 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\begin_modules
+theorems-ams
+algolyx
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 2
+\use_package amssymb 2
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date true
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 1in
+\topmargin 1in
+\rightmargin 1in
+\bottommargin 1in
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip medskip
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+\begin_inset FormulaMacro
+\newcommand{\M}{\mathcal{M}}
+{\mathcal{M}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Title
+\begin_inset FormulaMacro
+\newcommand{\I}{\mathcal{I}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Title
+\begin_inset FormulaMacro
+\newcommand{\X}{\mathcal{X}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Title
+\begin_inset FormulaMacro
+\renewcommand{\O}{\mathcal{O}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Title
+\begin_inset FormulaMacro
+\newcommand{\P}{\mathcal{P}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Title
+\begin_inset FormulaMacro
+\newcommand{\E}{\mathbb{E}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Title
+\begin_inset FormulaMacro
+\newcommand{\R}{\mathbb{R}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Title
+Matroid Polytopes
+\end_layout
+
+\begin_layout Section
+Matroid Polytopes
+\end_layout
+
+\begin_layout Standard
+As is often the case with tractable discrete problems, we can view the independe
+nt sets of a matroid as a polytope.
+ This polytope is solvable, which paves the way for advanced applications
+ of matroids.
+ We define the 
+\series bold
+matroid polytope
+\series default
+ 
+\begin_inset Formula $\mathcal{P}(\mathcal{M})$
+\end_inset
+
+:
+\begin_inset Formula 
+\begin{align*}
+\sum_{j\in S}x_{j} & \leq rank_{\mathcal{M}}(S)\text{ }\forall S\subseteq\mathcal{X}\\
+x_{j} & \geq0\text{ }\forall j\in\mathcal{X}
+\end{align*}
+
+\end_inset
+
+This polytope assigns a variable 
+\begin_inset Formula $x_{j}$
+\end_inset
+
+ to each element 
+\begin_inset Formula $j\in\mathcal{X}$
+\end_inset
+
+, and sets each feasible 
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+ as a fractional subset of 
+\begin_inset Formula $\mathcal{X}$
+\end_inset
+
+.
+ Note that 
+\begin_inset Formula $0\leq x_{j}\leq1$
+\end_inset
+
+ because the rank of a singleton is at most 1.
+ Thus, the 0-1 indicator vector 
+\begin_inset Formula $\boldsymbol{x}^{I}$
+\end_inset
+
+ for an independent set 
+\begin_inset Formula $I\in\mathcal{I}$
+\end_inset
+
+ is in the polytope.
+ However, it is not immediately clear that 
+\begin_inset Formula $\mathcal{P}(\mathcal{M})$
+\end_inset
+
+ is the convex hull of 
+\begin_inset Formula $\mathcal{I}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Theorem
+\begin_inset Formula $\mathcal{P}(\mathcal{M})=convHull(\{\boldsymbol{x}^{I}:I\in\mathcal{I}\})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+It is clear that 
+\begin_inset Formula $\mathcal{P}(\mathcal{M})\supseteq convHull(\{\boldsymbol{x}^{I}:I\in\mathcal{I}\})$
+\end_inset
+
+.
+ To show that 
+\begin_inset Formula $\mathcal{P}(\mathcal{M})\subseteq convHull(\{\boldsymbol{x}^{I}:I\in\mathcal{I}\})$
+\end_inset
+
+, we show that every vertex of 
+\begin_inset Formula $\mathcal{P}(\mathcal{M})$
+\end_inset
+
+ is exactly 
+\begin_inset Formula $\boldsymbol{x}^{I}$
+\end_inset
+
+ for 
+\begin_inset Formula $I\in\mathcal{I}$
+\end_inset
+
+.
+ Recall that it suffices to show that every linear function 
+\begin_inset Formula $\boldsymbol{w}^{\intercal}\boldsymbol{x}$
+\end_inset
+
+ is maximized over 
+\begin_inset Formula $\mathcal{P}(\mathcal{M})$
+\end_inset
+
+ at such an 
+\begin_inset Formula $\boldsymbol{x}^{I}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+We can think of the greedy algorithm as an algorithm which computes an indicator
+ vector 
+\begin_inset Formula $\boldsymbol{x}^{*}=\boldsymbol{x}^{B}\in\mathcal{P}(\mathcal{M})$
+\end_inset
+
+.
+ We will show that 
+\begin_inset Formula $\boldsymbol{x}^{*}$
+\end_inset
+
+ maximizes 
+\begin_inset Formula $\boldsymbol{w}^{\intercal}\boldsymbol{x}$
+\end_inset
+
+ over 
+\begin_inset Formula $\boldsymbol{x}\in\mathcal{P}(\mathcal{M})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+Recall that 
+\begin_inset Formula $i\in\{1,\dots,n\}$
+\end_inset
+
+ is selected by the greedy algorithm if and only if 
+\begin_inset Formula $i\notin span(\{1,\dots,i-1\})$
+\end_inset
+
+.
+ That is, 
+\begin_inset Formula $i$
+\end_inset
+
+ is selected if and only if 
+\begin_inset Formula $rank[1:i]-rank[1:i-1]=1$
+\end_inset
+
+.
+ Thus 
+\begin_inset Formula $x_{i}^{*}=rank[1:i]-rank[1:i-1]$
+\end_inset
+
+ for non-negative weights 
+\begin_inset Formula $i$
+\end_inset
+
+ and 0 for negative weights 
+\begin_inset Formula $i$
+\end_inset
+
+.
+ Let weights 
+\begin_inset Formula $1,\dots,n$
+\end_inset
+
+ be the non-negative ones.
+ Then we have:
+\begin_inset Formula 
+\[
+\sum_{i\in\mathcal{X}}w_{i}x_{i}^{*}=\sum_{i=1}^{n}w_{i}x_{i}^{*}=\sum_{i=1}^{n}w_{i}rank[1:i]-rank[1:i-1]
+\]
+
+\end_inset
+
+Consider an arbitrary 
+\begin_inset Formula $x\in\mathcal{P}(\mathcal{M})$
+\end_inset
+
+.
+ We have:
+\begin_inset Formula 
+\[
+\sum_{i\in\mathcal{X}}w_{i}x_{i}\leq\sum_{i=1}^{n}w_{i}x_{i}
+\]
+
+\end_inset
+
+Now we can switch from a Riemann sum to a Lebesgue sum – that is, sum across
+ the 
+\begin_inset Formula $w$
+\end_inset
+
+'s instead of the 
+\begin_inset Formula $i$
+\end_inset
+
+'s.
+ The above is then equal to:
+\begin_inset Formula 
+\[
+\sum_{i=1}^{n}(w_{i}-w_{i+1})x[1:i]\leq\sum_{i=1}^{n}(w_{i}-w_{i+1})rank[1:i]
+\]
+
+\end_inset
+
+We now switch back to a Riemann sum to obtain that the above is equal to:
+\begin_inset Formula 
+\[
+\sum_{i=1}^{n}w_{i}(rank[1:i]-rank[1:i-1])
+\]
+
+\end_inset
+
+Thus we establish that 
+\begin_inset Formula $\boldsymbol{x}^{*}$
+\end_inset
+
+ maximizes 
+\begin_inset Formula $\boldsymbol{w}^{\intercal}\boldsymbol{x}$
+\end_inset
+
+ over 
+\begin_inset Formula $\boldsymbol{x}\in\mathcal{P}(\mathcal{M})$
+\end_inset
+
+ and the theorem follows.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+When given an independence oracle for 
+\begin_inset Formula $\mathcal{M}$
+\end_inset
+
+, we can maximize linear functions over 
+\begin_inset Formula $\mathcal{P}(\mathcal{M})$
+\end_inset
+
+ in time 
+\begin_inset Formula $\mathcal{O}(n\log n)+nT$
+\end_inset
+
+ where 
+\begin_inset Formula $T$
+\end_inset
+
+ is the runtime of the oracle (this runtime is the same as the greedy algorithm,
+ because they are equivalent problems).
+ Thus by the equivalence of separation and optimization, we can implement
+ a separation oracle for 
+\begin_inset Formula $\mathcal{P}(\mathcal{M})$
+\end_inset
+
+ in time 
+\begin_inset Formula $poly(n,T)$
+\end_inset
+
+, which is awesome due to the exponential constraints in 
+\begin_inset Formula $\mathcal{P}(\mathcal{M})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Matroid Base Polytope
+\end_layout
+
+\begin_layout Standard
+The matroid polytope is the convex hull of independent sets, but what if
+ we only want to study full-rank sets (e.g., spanning trees)? We define the
+ 
+\series bold
+matroid base polytope 
+\begin_inset Formula $\mathcal{P}_{base}(\mathcal{M})$
+\end_inset
+
+
+\series default
+:
+\begin_inset Formula 
+\begin{align*}
+\sum_{j\in S}x_{j} & \leq rank_{\mathcal{M}}(S)\text{ }\forall S\subseteq\mathcal{X}\\
+\sum_{j\in\mathcal{X}}x_{j} & =rank(\mathcal{M})\\
+x_{j} & \geq0\text{ }\forall j\in\mathcal{X}
+\end{align*}
+
+\end_inset
+
+Then the 0-1 indicator vector for every base of 
+\begin_inset Formula $\mathcal{M}$
+\end_inset
+
+ is in the above polytope.
+\end_layout
+
+\begin_layout Theorem
+\begin_inset Formula $\mathcal{P}_{base}(\mathcal{M})=convHull(\{\boldsymbol{x}^{B}:B\text{ is a base of }\mathcal{M}\})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+It is clear that 
+\begin_inset Formula $\mathcal{P}_{base}(\mathcal{M})\supseteq convHull(\{\boldsymbol{x}^{B}:B\text{ is a base of }\mathcal{M}\})$
+\end_inset
+
+.
+ To show that 
+\begin_inset Formula $\mathcal{P}_{base}(\mathcal{M})\subseteq convHull(\{\boldsymbol{x}^{B}:B\text{ is a base of }\mathcal{M}\})$
+\end_inset
+
+, first take 
+\begin_inset Formula $\boldsymbol{x}\in\mathcal{P}_{base}(\mathcal{M})$
+\end_inset
+
+.
+ Since 
+\begin_inset Formula $\boldsymbol{x}\in\mathcal{P}(\mathcal{M})$
+\end_inset
+
+, 
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+ is a convex combination of independent sets 
+\begin_inset Formula $I_{1},\dots,I_{k}$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathcal{M}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+Since 
+\begin_inset Formula $\|\boldsymbol{x}\|_{1}=rank(\mathcal{M})$
+\end_inset
+
+, and 
+\begin_inset Formula $\|\boldsymbol{x}^{I_{\ell}}\|_{1}\leq rank(\mathcal{M})$
+\end_inset
+
+ for all 
+\begin_inset Formula $\ell$
+\end_inset
+
+, it must be that 
+\begin_inset Formula $\|\boldsymbol{x}^{I_{1}}\|_{1}=\|\boldsymbol{x}^{I_{2}}\|_{1}=\dots=\|\boldsymbol{x}^{I_{k}}\|_{1}=rank(\mathcal{M})$
+\end_inset
+
+.
+ That is, each independent set has rank at most that of 
+\begin_inset Formula $\mathcal{M}$
+\end_inset
+
+, but they average out to have the rank exactly of 
+\begin_inset Formula $\mathcal{M}$
+\end_inset
+
+, so they must be equal.
+\end_layout
+
+\begin_layout Section
+Matroid Intersection
+\end_layout
+
+\begin_layout Standard
+Here, we will analyze an operation on matroids which does not produce a
+ matroid, but 
+\bar under
+does
+\bar default
+ produce a solvable problem.
+ Given 
+\begin_inset Formula $\mathcal{M}_{1}=(\mathcal{X},\mathcal{I}_{1})$
+\end_inset
+
+, 
+\begin_inset Formula $\mathcal{M}_{2}=(\X,\I_{2})$
+\end_inset
+
+, then 
+\begin_inset Formula $\M_{1}\cap\M_{2}=(\X,\I_{1}\cap\I_{2})$
+\end_inset
+
+.
+ A few examples of matroid intersection include bipartite matching, which
+ is an intersection of two partition matroids, and the minimum weight arborescen
+ce, which is an intersection of a graphic matroid and a partition matroid.
+ Other examples include colorful spanning trees and orientations.
+ Note that optimizing a linear function over 
+\begin_inset Formula $\M_{1}\cap\M_{2}$
+\end_inset
+
+ is equivalent to optimizing over 
+\begin_inset Formula $convHull(\{\boldsymbol{x}^{I}:I\in\I_{1}\cap\I_{2}\})$
+\end_inset
+
+; however it is not clear that this is a solvable polytope.
+\end_layout
+
+\begin_layout Theorem
+\begin_inset Formula $\P(\M_{1})\cap\P(\M_{2})=convHull(\{\boldsymbol{x}^{I}:I\in\I_{1}\cap\I_{2}\})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+As above, the 
+\begin_inset Formula $\supseteq$
+\end_inset
+
+ direction is clear.
+ But, for the 
+\begin_inset Formula $\subseteq$
+\end_inset
+
+ direction, it is conceivable that 
+\begin_inset Formula $\P(\M_{1})\cap\P(\M_{2})$
+\end_inset
+
+ has fractional vertices.
+ As it turns out, this can't happen but is tough to prove and requires the
+ exploitation of subtle structures of the matroid polytopes (link on course
+ website).
+\end_layout
+
+\begin_layout Standard
+Thus for maximizing over matroid intersections, we have the following LP:
+\begin_inset Formula 
+\begin{align*}
+\max\text{ } & \sum_{i\in\X}w_{i}x_{i}\\
+\text{s.t. } & \sum_{j\in S}x_{j}\leq rank_{\mathcal{M}_{1}}(S)\text{ }\forall S\subseteq\mathcal{X}\\
+ & \sum_{j\in S}x_{j}\leq rank_{\mathcal{M}_{2}}(S)\text{ }\forall S\subseteq\mathcal{X}\\
+ & x_{j}\geq0\text{ }\forall j\in\mathcal{X}
+\end{align*}
+
+\end_inset
+
+Then given independence oracles for 
+\begin_inset Formula $\M_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $\M_{2}$
+\end_inset
+
+, we can optimize over the intersection in polynomial time (proof by equivalence
+ of separation and optimization).
+ But, 3-way matroid intersection is NP-hard by reduction from Hamiltonian
+ Path in directed graphs.
+ We can see that solving the Hamiltonian Path problem is equivalent to optimizin
+g a modular function over the intersection of a graphic matroid and two
+ partition matroids, but this cannot be done in polynomial time.
+\end_layout
+
+\end_body
+\end_document

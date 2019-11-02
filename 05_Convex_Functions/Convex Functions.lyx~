@@ -1,0 +1,481 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\begin_modules
+theorems-ams
+algolyx
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date true
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 1in
+\topmargin 1in
+\rightmargin 1in
+\bottommargin 1in
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip medskip
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Convex Functions
+\end_layout
+
+\begin_layout Section
+Definitions
+\end_layout
+
+\begin_layout Subsection
+Jensen's Inequality
+\end_layout
+
+\begin_layout Definition
+A function 
+\begin_inset Formula $f:\mathbb{R}^{n}\rightarrow\mathbb{R}$
+\end_inset
+
+ is 
+\series bold
+convex
+\series default
+ iff the line segment between any two points on its graph lie at or above
+ the graph.
+ This is formalized by Jensen's Inequality:
+\begin_inset Formula 
+\[
+f(\theta\boldsymbol{x}+(1-\theta)\boldsymbol{y})\leq\theta f(\boldsymbol{x})+(1-\theta)f(\boldsymbol{y})\text{ }\forall\boldsymbol{x},\boldsymbol{y}\in\mathbb{R}^{n},\theta\in[0,1]
+\]
+
+\end_inset
+
+It follows from this definition that 
+\begin_inset Formula $f$
+\end_inset
+
+ is convex iff its 
+\series bold
+restriction
+\series default
+ to any line 
+\begin_inset Formula $\{\boldsymbol{x}+t\boldsymbol{v}:t\in\mathbb{R}\}$
+\end_inset
+
+ is convex.
+ So, all the 2D 
+\begin_inset Quotes eld
+\end_inset
+
+slices
+\begin_inset Quotes erd
+\end_inset
+
+ of the function must be convex.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Definition
+A function 
+\begin_inset Formula $f:\mathbb{R}^{n}\rightarrow\mathbb{R}$
+\end_inset
+
+ is 
+\series bold
+strictly convex
+\series default
+ iff Jensen's Inequality is strictly satisfied everywhere 
+\begin_inset Formula $\boldsymbol{x}\neq\boldsymbol{y}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Definition
+A function 
+\begin_inset Formula $f:\mathbb{R}^{n}\rightarrow\mathbb{R}$
+\end_inset
+
+ is 
+\series bold
+concave
+\series default
+ iff 
+\begin_inset Formula $-f$
+\end_inset
+
+ is convex.
+ Note that if 
+\begin_inset Formula $f$
+\end_inset
+
+ is both convex and concave, it must be affine.
+\end_layout
+
+\begin_layout Subsection
+First-Order Definition
+\end_layout
+
+\begin_layout Definition
+A once-differentiable function 
+\begin_inset Formula $f:\mathbb{R}^{n}\rightarrow\mathbb{R}$
+\end_inset
+
+ is convex iff the first-order approximation at any point underestimates
+ the value of the function everywhere.
+ Formally,
+\begin_inset Formula 
+\[
+f(\boldsymbol{y})\geq f(\boldsymbol{x})+(\nabla f(\boldsymbol{x}))^{\intercal}(\boldsymbol{y}-\boldsymbol{x})\text{ }\forall\boldsymbol{x},\boldsymbol{y}\in\mathbb{R}^{n}
+\]
+
+\end_inset
+
+This definition allows us to conclude global information from local information
+ because if 
+\begin_inset Formula $\nabla f(\boldsymbol{x})=0$
+\end_inset
+
+ then 
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+ is a global minimizer of 
+\begin_inset Formula $f$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Second-Order Definition
+\end_layout
+
+\begin_layout Definition
+A twice-differentiable function 
+\begin_inset Formula $f:\mathbb{R}^{n}\rightarrow\mathbb{R}$
+\end_inset
+
+ is convex iff its Hessian matrix is positive semi-definite for all 
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+: 
+\begin_inset Formula $\nabla^{2}f(\boldsymbol{x})\succeq0$
+\end_inset
+
+.
+ In the one-dimensional case, this simply means that the second derivative
+ of 
+\begin_inset Formula $f$
+\end_inset
+
+ is non-negative everywhere.
+\end_layout
+
+\begin_layout Subsection
+Epigraph Definition
+\end_layout
+
+\begin_layout Definition
+The 
+\series bold
+epigraph
+\series default
+ of a function is the set of all points above the graph of the function.
+ Formally, given a function 
+\begin_inset Formula $f:\mathbb{R}^{n}\rightarrow\mathbb{R}$
+\end_inset
+
+, 
+\begin_inset Formula $epi(f)=\{(\boldsymbol{x},t):t\geq f(\boldsymbol{x})\}$
+\end_inset
+
+.
+ 
+\begin_inset Formula $f$
+\end_inset
+
+ is convex iff 
+\begin_inset Formula $epi(f)$
+\end_inset
+
+ is a convex set; this useful fact allows us to translate a problem from
+ convex functions to convex sets, which are generally easier to work with.
+\end_layout
+
+\begin_layout Subsection
+Generalized Convexity
+\end_layout
+
+\begin_layout Standard
+In general, Jensen's Inequality applies for any convex combination of points
+ in the domain of 
+\begin_inset Formula $f$
+\end_inset
+
+.
+ That is, given 
+\begin_inset Formula $\boldsymbol{x}_{1},\dots,\boldsymbol{x}_{k}$
+\end_inset
+
+ in the domain of 
+\begin_inset Formula $f$
+\end_inset
+
+ and 
+\begin_inset Formula $\theta_{1},\dots,\theta_{k}\geq0$
+\end_inset
+
+ such that 
+\begin_inset Formula $\sum_{i}\theta_{i}=1$
+\end_inset
+
+,
+\begin_inset Formula 
+\[
+f\big(\sum_{i}\theta_{i}\boldsymbol{x}_{i}\big)\leq\sum_{i}\theta_{i}f(\boldsymbol{x}_{i})
+\]
+
+\end_inset
+
+If we consider infinitely many points, then we can translate Jensen's Inequality
+ to the language of probability.
+ Given a probability measure 
+\begin_inset Formula $D$
+\end_inset
+
+ with 
+\begin_inset Formula $\boldsymbol{x}\sim D$
+\end_inset
+
+,
+\begin_inset Formula 
+\[
+f\big(\mathbb{E}[\boldsymbol{x}]\big)\leq\mathbb{E}[f(\boldsymbol{x})]
+\]
+
+\end_inset
+
+This implies that adding noise to 
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+ can only increase 
+\begin_inset Formula $\mathbb{E}[f(\boldsymbol{x})]$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Properties
+\end_layout
+
+\begin_layout Subsection
+Minima
+\end_layout
+
+\begin_layout Definition
+A point 
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+ is a 
+\series bold
+local minimum
+\series default
+ of a function 
+\begin_inset Formula $f$
+\end_inset
+
+ if there exists an open ball 
+\begin_inset Formula $B$
+\end_inset
+
+ containing 
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+ such that 
+\begin_inset Formula $f(\boldsymbol{y})\geq f(\boldsymbol{x})\text{ }\forall y\in B$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Definition
+If 
+\begin_inset Formula $f$
+\end_inset
+
+ is convex, then 
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+ is a local minimum of 
+\begin_inset Formula $f$
+\end_inset
+
+ iff 
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+ is a global minimum of 
+\begin_inset Formula $f$
+\end_inset
+
+.
+ This fact underlies much of the tractability of convex optimization, and
+ is one reason why convex functions are so convenient to work with.
+\end_layout
+
+\begin_layout Subsection
+Sublevel Set
+\end_layout
+
+\begin_layout Definition
+The 
+\begin_inset Formula $\alpha$
+\end_inset
+
+-sublevel set of a function 
+\begin_inset Formula $f$
+\end_inset
+
+ is 
+\begin_inset Formula $\{\boldsymbol{x}\in domain(f):f(\boldsymbol{x})\leq\alpha\}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Definition
+Every sublevel set of a convex function is a convex set; however, not every
+ function with convex sublevel sets is convex (these functions are called
+ 
+\series bold
+quasiconvex
+\series default
+).
+\end_layout
+
+\begin_layout Subsection
+Other Properties
+\end_layout
+
+\begin_layout Enumerate
+Real-valued convex functions are continuous on the interior of their domain.
+\end_layout
+
+\begin_layout Enumerate
+If 
+\begin_inset Formula $f:D\rightarrow\mathbb{R}$
+\end_inset
+
+ then we can transform it into 
+\begin_inset Formula $f:\mathbb{R}^{n}\rightarrow\mathbb{R}$
+\end_inset
+
+ by setting 
+\begin_inset Formula $f(\boldsymbol{x})=\infty$
+\end_inset
+
+ where 
+\begin_inset Formula $\boldsymbol{x}\notin D$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Convexity-Preserving Operations
+\end_layout
+
+\begin_layout Standard
+To prove a function is convex, we can either prove it directly via Jensen's
+ Inequality or express the function as a combination of other convex functions
+ under certain convexity-preserving operations.
+\end_layout
+
+\end_body
+\end_document

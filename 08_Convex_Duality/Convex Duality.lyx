@@ -1,0 +1,401 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\begin_modules
+theorems-ams
+algolyx
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date true
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 1in
+\topmargin 1in
+\rightmargin 1in
+\bottommargin 1in
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip medskip
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Convex Duality
+\end_layout
+
+\begin_layout Section
+The Lagrange Dual Problem
+\end_layout
+
+\begin_layout Standard
+Recall the standard form of a convex program:
+\begin_inset Formula 
+\begin{align*}
+\min\text{ } & f_{0}(\boldsymbol{x})\\
+\text{s.t. } & f_{i}(\boldsymbol{x})\leq0\\
+ & h_{j}(\boldsymbol{x})=0
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Where the 
+\begin_inset Formula $f_{i}$
+\end_inset
+
+ are convex and the 
+\begin_inset Formula $h_{j}$
+\end_inset
+
+ are affine.
+ Let 
+\begin_inset Formula $\mathcal{D}$
+\end_inset
+
+ be the domain of all the functions.
+\end_layout
+
+\begin_layout Standard
+The basic idea of Lagrangian duality is to relax the constraints by replacing
+ each constraint with a linear penalty term in the objective.
+ So, we obtain a new optimization problem with no constraints and the 
+\series bold
+Lagrange function 
+\series default
+as the objective:
+\begin_inset Formula 
+\[
+L(\boldsymbol{x},\boldsymbol{\lambda},\boldsymbol{\nu})=f_{0}(\boldsymbol{x})+\boldsymbol{\lambda}^{\intercal}\boldsymbol{f}(\boldsymbol{x})+\boldsymbol{\nu}^{\intercal}\boldsymbol{h}(\boldsymbol{x})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We restrict 
+\begin_inset Formula $\boldsymbol{\lambda}\succeq\boldsymbol{0}$
+\end_inset
+
+.
+ We call each 
+\begin_inset Formula $\boldsymbol{\lambda}_{i}$
+\end_inset
+
+ the Lagrange multiplier for the 
+\begin_inset Formula $i^{th}$
+\end_inset
+
+ inequality constraint, and 
+\begin_inset Formula $\boldsymbol{\nu}_{j}$
+\end_inset
+
+ the 
+\series bold
+Lagrange multiplier
+\series default
+ for the 
+\begin_inset Formula $j^{th}$
+\end_inset
+
+ equality constraint.
+ Now, the 
+\series bold
+Lagrange dual function 
+\series default
+gives the optimal value for each parameter subject to the soft constraints
+ we imposed:
+\begin_inset Formula 
+\[
+g(\boldsymbol{\lambda},\boldsymbol{\nu})=\inf_{\boldsymbol{x}\in\mathcal{D}}L(\boldsymbol{x},\boldsymbol{\lambda},\boldsymbol{\nu})
+\]
+
+\end_inset
+
+Note that 
+\begin_inset Formula $g$
+\end_inset
+
+ is a concave function of the Lagrange multipliers.
+ It is common for the dual function to be unbounded for some choice of multiplie
+rs; so, we can restrict the domain to 
+\begin_inset Formula $g$
+\end_inset
+
+ to be 
+\begin_inset Formula $\{(\boldsymbol{\lambda},\boldsymbol{\nu}):g(\boldsymbol{\lambda},\boldsymbol{\nu})>-\infty\}$
+\end_inset
+
+.
+ Then we have the 
+\series bold
+Lagrange dual problem
+\series default
+:
+\begin_inset Formula 
+\begin{align*}
+\max\text{ } & g(\boldsymbol{\lambda},\boldsymbol{\nu})\\
+\text{s.t. } & \boldsymbol{\lambda}\succeq\boldsymbol{0}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Convex Duality
+\end_layout
+
+\begin_layout Standard
+Since the Lagrange dual problem solves a relaxed version of the primal,
+ we know that 
+\begin_inset Formula $OPT(dual)\leq OPT(primal)$
+\end_inset
+
+ under the primal constraints – this is exactly weak duality.
+ Strong duality is more subtle, and requires 
+\series bold
+Slater's condition
+\series default
+ (i.e., strict feasiblity).
+ If this condition holds, along with convexity of the problem, then 
+\begin_inset Formula $\exists\boldsymbol{\lambda},\boldsymbol{\nu}$
+\end_inset
+
+ such that 
+\begin_inset Formula $OPT(dual)=OPT(primal)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Because of strong duality, dual solutions can serve as a certificate of
+ optimality for the primal solution.
+ In particular, if 
+\begin_inset Formula $f_{0}(\boldsymbol{x})=g(\boldsymbol{\lambda},\boldsymbol{\nu})$
+\end_inset
+
+ and both are feasible, then both are optimal.
+ Furthermore, primal-dual algorithms use dual certificates to bound the
+ suboptimality of a solution.
+ If 
+\begin_inset Formula $f_{0}(\boldsymbol{x})-g(\boldsymbol{\lambda},\boldsymbol{\nu})\leq\epsilon$
+\end_inset
+
+, then both solutions are within 
+\begin_inset Formula $\epsilon$
+\end_inset
+
+ of optimality (i.e., 
+\begin_inset Formula $OPT(primal)$
+\end_inset
+
+ and 
+\begin_inset Formula $OPT(dual)$
+\end_inset
+
+ lie in 
+\begin_inset Formula $[g(\boldsymbol{\lambda},\boldsymbol{\nu}),f_{0}(\boldsymbol{x})]$
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+If strong duality holds and 
+\begin_inset Formula $\boldsymbol{x}^{*}$
+\end_inset
+
+ and 
+\begin_inset Formula $(\boldsymbol{\lambda}^{*},\boldsymbol{\nu}^{*})$
+\end_inset
+
+ are optimal, then:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\boldsymbol{x}^{*}$
+\end_inset
+
+ minimizes 
+\begin_inset Formula $L(\boldsymbol{x},\boldsymbol{\lambda}^{*},\boldsymbol{\nu}^{*})$
+\end_inset
+
+ over all 
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\boldsymbol{\lambda}_{i}^{*}\boldsymbol{f}_{i}(\boldsymbol{x}^{*})=0\text{ }\forall i$
+\end_inset
+
+ (complementary slackness).
+ Specifically, 
+\begin_inset Formula $\boldsymbol{\lambda}_{i}^{*}=0$
+\end_inset
+
+ for loose constraints and 
+\begin_inset Formula $\boldsymbol{f}_{i}(\boldsymbol{x}^{*})=0$
+\end_inset
+
+ for tight constraints.
+ 
+\end_layout
+
+\begin_layout Subsection
+KKT Optimality Conditions
+\end_layout
+
+\begin_layout Standard
+Suppose the primal is convex and defined on an open domain, the objective
+ and constraints are differentiable everywhere, and strong duality holds.
+ Then 
+\begin_inset Formula $\boldsymbol{x}^{*}$
+\end_inset
+
+ and 
+\begin_inset Formula $(\boldsymbol{\lambda}^{*},\boldsymbol{\nu}^{*})$
+\end_inset
+
+ are optimal if:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\boldsymbol{x}^{*}$
+\end_inset
+
+ and 
+\begin_inset Formula $(\boldsymbol{\lambda}^{*},\boldsymbol{\nu}^{*})$
+\end_inset
+
+ are feasible.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\boldsymbol{\lambda}_{i}^{*}\boldsymbol{f}_{i}(\boldsymbol{x}^{*})=0\text{ }\forall i$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $\nabla_{\boldsymbol{x}}L(\boldsymbol{x}^{*},\boldsymbol{\lambda}^{*},\boldsymbol{\nu}^{*})=0$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+These are called the KKT conditions, and are often useful for reframing
+ a problem to make it easier to solve.
+ For example, given an equality-constrainted quadratic program of the form:
+\begin_inset Formula 
+\begin{align*}
+\min\text{ } & \frac{1}{2}\boldsymbol{x}^{\intercal}{\bf P}\boldsymbol{x}+\boldsymbol{q}^{\intercal}\boldsymbol{x}+r\\
+\text{s.t. } & {\bf A}\boldsymbol{x}=\boldsymbol{b}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Then the KKT conditions state that 
+\begin_inset Formula ${\bf A}\boldsymbol{x}^{*}=\boldsymbol{b}$
+\end_inset
+
+ and 
+\begin_inset Formula ${\bf P}\boldsymbol{x}^{*}+\boldsymbol{q}+{\bf A}^{\intercal}\boldsymbol{\nu}^{*}$
+\end_inset
+
+, and we can solve this system of equations to find the optimal solution.
+ This is a much easier problem because it is simply a linear system with
+ 
+\begin_inset Formula $m+n$
+\end_inset
+
+ constraints and 
+\begin_inset Formula $m+n$
+\end_inset
+
+ variables.
+\end_layout
+
+\end_body
+\end_document

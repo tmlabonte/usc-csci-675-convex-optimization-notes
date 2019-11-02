@@ -1,0 +1,412 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\begin_modules
+theorems-ams
+algolyx
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date true
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 1in
+\topmargin 1in
+\rightmargin 1in
+\bottommargin 1in
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip medskip
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Geometric Duality
+\end_layout
+
+\begin_layout Section
+Convexity and Duality
+\end_layout
+
+\begin_layout Standard
+There are two equivalent ways to represent a convex set, and their equivalence
+ gives rise to a duality relationship.
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+Standard: A set is represented by the family of all the points in the set.
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+Dual: A set is represented by the set of halfspaces containing the set.
+\end_layout
+
+\begin_layout Theorem
+A closed convex set 
+\begin_inset Formula $S$
+\end_inset
+
+ is the intersection of all closed halfspaces 
+\begin_inset Formula $\mathcal{H}$
+\end_inset
+
+ containing it.
+\end_layout
+
+\begin_layout Proof
+Clearly, 
+\begin_inset Formula $S\subseteq\bigcap_{H\in\mathcal{H}}H$
+\end_inset
+
+.
+ Now, consider 
+\begin_inset Formula $\boldsymbol{x}\notin S$
+\end_inset
+
+.
+ By the Separating Hyperplane Theorem, there exists a hyperplane separating
+ 
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+ and 
+\begin_inset Formula $S$
+\end_inset
+
+.
+ Therefore, there is some 
+\begin_inset Formula $H\in\mathcal{H}$
+\end_inset
+
+ with 
+\begin_inset Formula $\boldsymbol{x}\notin H$
+\end_inset
+
+, so 
+\begin_inset Formula $\boldsymbol{x}\notin\bigcap_{H\in\mathcal{H}}H$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Theorem
+A closed convex cone 
+\begin_inset Formula $K$
+\end_inset
+
+ is the intersection of all closed homogeneous halfspaces 
+\begin_inset Formula $\mathcal{H}$
+\end_inset
+
+ containing it.
+\end_layout
+
+\begin_layout Proof
+For every non-homogeneous halfspace 
+\begin_inset Formula $\boldsymbol{a}^{\intercal}\boldsymbol{x}\leq b$
+\end_inset
+
+ containing 
+\begin_inset Formula $K$
+\end_inset
+
+, the smaller homogeneous halfspace 
+\begin_inset Formula $\boldsymbol{a}^{\intercal}\boldsymbol{x}\leq0$
+\end_inset
+
+ also contains 
+\begin_inset Formula $K$
+\end_inset
+
+ (because 
+\begin_inset Formula $K$
+\end_inset
+
+ is a cone).
+ Therefore we can discard non-homogeneous halfspaces in the intersection.
+\end_layout
+
+\begin_layout Theorem
+A convex function is the pointwise supremum of all affine functions underestimat
+ing it everywhere.
+\end_layout
+
+\begin_layout Proof
+The epigraph of any convex function is convex, so it is the intersection
+ of halfspaces 
+\begin_inset Formula $\mathcal{H}$
+\end_inset
+
+.
+ Each 
+\begin_inset Formula $H\in\mathcal{H}$
+\end_inset
+
+ can be written 
+\begin_inset Formula $\boldsymbol{a}^{\intercal}\boldsymbol{x}-t\leq b$
+\end_inset
+
+ for 
+\begin_inset Formula $\boldsymbol{a}\in\mathbb{R}^{n},b\in\mathbb{R}$
+\end_inset
+
+.
+ Note that since 
+\begin_inset Formula $epi(f)$
+\end_inset
+
+ goes on forever upwards, we need to be able to increase 
+\begin_inset Formula $t$
+\end_inset
+
+ to infinity and still satisfy the inequality – thus the subtraction.
+\end_layout
+
+\begin_layout Proof
+This definition constraints each 
+\begin_inset Formula $(\boldsymbol{x},t)\in epi(f)$
+\end_inset
+
+ to 
+\begin_inset Formula $\boldsymbol{a}^{\intercal}\boldsymbol{x}-b\leq t$
+\end_inset
+
+.
+ Therefore, 
+\begin_inset Formula $f(\boldsymbol{x})$
+\end_inset
+
+ is the lowest value of 
+\begin_inset Formula $t$
+\end_inset
+
+ such that 
+\begin_inset Formula $(\boldsymbol{x},t)\in epi(f)$
+\end_inset
+
+.
+ So, 
+\begin_inset Formula $f(\boldsymbol{x})$
+\end_inset
+
+ is the pointwise supremum of 
+\begin_inset Formula $\boldsymbol{a}^{\intercal}\boldsymbol{x}-b$
+\end_inset
+
+ over all halfspaces 
+\begin_inset Formula $H(\boldsymbol{a},b)\in\mathcal{H}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Duality of Convex Sets
+\end_layout
+
+\begin_layout Definition
+Let 
+\begin_inset Formula $S\subseteq\mathbb{R}^{n}$
+\end_inset
+
+ be a closed convex set containing the origin.
+ Then the 
+\series bold
+polar
+\series default
+ of 
+\begin_inset Formula $S$
+\end_inset
+
+ is
+\begin_inset Formula 
+\[
+S^{\circ}=\{\boldsymbol{y}:\boldsymbol{y}^{\intercal}\boldsymbol{x}\leq1\text{ }\forall\boldsymbol{x}\in S\}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Note that every halfspace 
+\begin_inset Formula $\boldsymbol{a}^{\intercal}\boldsymbol{x}\leq b$
+\end_inset
+
+ with 
+\begin_inset Formula $b\ne0$
+\end_inset
+
+ can be written as a normalized inequality 
+\begin_inset Formula $\boldsymbol{y}^{\intercal}\boldsymbol{x}\leq1$
+\end_inset
+
+ by dividing by 
+\begin_inset Formula $b$
+\end_inset
+
+.
+ Thus the polar of 
+\begin_inset Formula $S$
+\end_inset
+
+ is the normalized representation of halfspaces containing 
+\begin_inset Formula $S$
+\end_inset
+
+.
+ Some properties of the polar include:
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $S^{\circ\circ}=S$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $S^{\circ}$
+\end_inset
+
+ is a closed convex set containing the origin.
+\end_layout
+
+\begin_layout Enumerate
+When 
+\begin_inset Formula $\boldsymbol{0}$
+\end_inset
+
+ is in the interior of 
+\begin_inset Formula $S$
+\end_inset
+
+, 
+\begin_inset Formula $S^{\circ}$
+\end_inset
+
+ is bounded.
+\end_layout
+
+\begin_layout Enumerate
+Polars scale as 
+\begin_inset Formula $\epsilon\rightarrow\frac{1}{\epsilon}$
+\end_inset
+
+, so the bigger 
+\begin_inset Formula $S$
+\end_inset
+
+ is, the smaller the polar is.
+\end_layout
+
+\begin_layout Enumerate
+When 
+\begin_inset Formula $S$
+\end_inset
+
+ is nonconvex, 
+\begin_inset Formula $S^{\circ}=(convHull(S))^{\circ}$
+\end_inset
+
+ and 
+\begin_inset Formula $S^{\circ\circ}=convHull(S)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+For polytopes, the vertices of the polytope are dual to the faces of the
+ polar; thus the polar of the unit diamond is the unit cube.
+ In this case, the polar is the convex hull of the rows of 
+\begin_inset Formula $A$
+\end_inset
+
+.
+ Also, if 
+\begin_inset Formula $S=S^{\circ}$
+\end_inset
+
+, we say that 
+\begin_inset Formula $S$
+\end_inset
+
+ is 
+\series bold
+self-dual
+\series default
+.
+ One example of this is that the 2-norm ball is self-dual.
+\end_layout
+
+\end_body
+\end_document

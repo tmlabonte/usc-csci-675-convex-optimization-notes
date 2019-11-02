@@ -1,0 +1,708 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\begin_modules
+theorems-ams
+algolyx
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date true
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 1in
+\topmargin 1in
+\rightmargin 1in
+\bottommargin 1in
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip medskip
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Introduction to Optimization
+\end_layout
+
+\begin_layout Section
+Basic Optimization
+\end_layout
+
+\begin_layout Standard
+Optimization is the selection of the best configuration of variables from
+ a set of feasible configurations.
+ More formally, given a 
+\series bold
+feasible set
+\series default
+ of configurations 
+\begin_inset Formula $\mathcal{X}$
+\end_inset
+
+, we select the value of the
+\series bold
+ decision variable
+\series default
+ 
+\begin_inset Formula $\boldsymbol{x}\in\mathcal{X}$
+\end_inset
+
+ such that the 
+\series bold
+objective function
+\series default
+ 
+\begin_inset Formula $f(\boldsymbol{x})$
+\end_inset
+
+ is minimized.
+ We write an optimization problem as:
+\end_layout
+
+\begin_layout Subsection
+Continuous Optimization
+\end_layout
+
+\begin_layout Standard
+In 
+\series bold
+continuous optimization
+\series default
+, we optimize a continuous objective function 
+\begin_inset Formula $f(\boldsymbol{x})$
+\end_inset
+
+ with 
+\begin_inset Formula $\mathcal{X}$
+\end_inset
+
+ a connected subset of Euclidean space.
+ Thus, we encode 
+\begin_inset Formula $\mathcal{X}$
+\end_inset
+
+ as a set of inequality constraints on 
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+:
+\begin_inset Formula 
+\begin{align*}
+\min\text{} & f(\boldsymbol{x})\\
+\text{s.t. } & g_{i}(\boldsymbol{x})\leq b_{i}\text{}\forall i\in C
+\end{align*}
+
+\end_inset
+
+Continuous optimization problems are 
+\series bold
+NP-
+\series default
+hard in general, but with convexity constraints introduced they are solvable
+ in polynomial time.
+\end_layout
+
+\begin_layout Definition
+A 
+\series bold
+convex set 
+\series default
+is a set 
+\begin_inset Formula $\mathcal{X}$
+\end_inset
+
+ with 
+\series bold
+
+\begin_inset Formula $\alpha\boldsymbol{x}+(1-\alpha)\boldsymbol{y}\in\mathcal{X}$
+\end_inset
+
+ 
+\begin_inset Formula $\forall\alpha\in[0,1];\boldsymbol{x},\boldsymbol{y}\in\mathcal{X}$
+\end_inset
+
+
+\series default
+.
+ That is, the line connecting any two points in the set is also in the set.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Definition
+A 
+\series bold
+convex function
+\series default
+ is a function 
+\begin_inset Formula $f:\mathcal{X}\rightarrow\mathbb{R}$
+\end_inset
+
+ such that 
+\begin_inset Formula $f(\alpha\boldsymbol{x}+(1-\alpha)\boldsymbol{y})\leq\alpha f(\boldsymbol{x})+(1-\alpha)f(\boldsymbol{y})$
+\end_inset
+
+ 
+\begin_inset Formula $\forall\alpha\in[0,1];\boldsymbol{x},\boldsymbol{y}\in\mathcal{X}$
+\end_inset
+
+.
+ That is, the value of a function between two points is always at or below
+ the line created by those two points.
+\end_layout
+
+\begin_layout Standard
+If 
+\begin_inset Formula $f(\boldsymbol{x})$
+\end_inset
+
+ is a convex function and 
+\begin_inset Formula $\mathcal{X}$
+\end_inset
+
+ is a convex set, we have a 
+\series bold
+convex optimization
+\series default
+ problem.
+\end_layout
+
+\begin_layout Example
+A common convex optimization problem is 
+\series bold
+least squares regression
+\series default
+: Given a dataset 
+\begin_inset Formula $(\boldsymbol{a_{i}},b_{i})\}_{i=1}^{m}$
+\end_inset
+
+ with 
+\begin_inset Formula $a_{i}\in\mathbb{R}^{n}$
+\end_inset
+
+ and 
+\begin_inset Formula $b_{i}\in\mathbb{R}$
+\end_inset
+
+ 
+\begin_inset Formula $\forall i$
+\end_inset
+
+, find the linear function 
+\begin_inset Formula $f:\mathbb{R}^{n}\rightarrow\mathbb{R}$
+\end_inset
+
+ with 
+\begin_inset Formula $f(\boldsymbol{a})=\boldsymbol{x}^{\intercal}\boldsymbol{a},\boldsymbol{x}\in\mathbb{R}^{n}$
+\end_inset
+
+ which minimizes the least squares error.
+ This problem can be simply written as:
+\begin_inset Formula 
+\begin{align*}
+\min\text{} & \|\mathbf{A}\boldsymbol{x}-\boldsymbol{b}\|_{2}^{2}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Example
+Another convex optimization problem is 
+\series bold
+min-cost flow
+\series default
+: Given a graph 
+\begin_inset Formula $G=(V,E)$
+\end_inset
+
+ with a cost 
+\begin_inset Formula $c_{e}\in\mathbb{R}^{+}$
+\end_inset
+
+ and capacity 
+\begin_inset Formula $d_{e}\in\mathbb{R}^{+}$
+\end_inset
+
+ on each edge 
+\begin_inset Formula $e$
+\end_inset
+
+, find the minimum cost routing of 
+\begin_inset Formula $r$
+\end_inset
+
+ units of flow from the source 
+\begin_inset Formula $s$
+\end_inset
+
+ to the sink 
+\begin_inset Formula $t$
+\end_inset
+
+.
+ As opposed to the last example, here we must utilize inequality constraints.
+\begin_inset Formula 
+\begin{align*}
+\min\text{}\text{ } & \sum_{e\in E}c_{e}x_{e}\\
+\text{s.t. } & \sum_{e\leftarrow v}x_{e}=\sum_{e\rightarrow v}x_{e},v\in V\setminus\{s,t\}\\
+ & \sum_{e\leftarrow s}x_{e}=r\\
+ & x_{e}\leq d_{e}\\
+ & x_{e}\geq0
+\end{align*}
+
+\end_inset
+
+This is a linear optimization which generalizes to a convex optimization
+ if 
+\begin_inset Formula $c_{e}$
+\end_inset
+
+ is dependent upon 
+\begin_inset Formula $x_{e}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Combinatorial Optimization
+\end_layout
+
+\begin_layout Standard
+In 
+\series bold
+combinatorial optimization
+\series default
+, we optimize over a finite feasible set 
+\begin_inset Formula $\mathcal{X}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Example
+A common combinatorial optimization problem is 
+\series bold
+shortest path
+\series default
+: Given a graph 
+\begin_inset Formula $G=(V,E)$
+\end_inset
+
+ with a cost 
+\begin_inset Formula $c_{e}\in\mathbb{R}^{+}$
+\end_inset
+
+ on each edge 
+\begin_inset Formula $e$
+\end_inset
+
+, find the minimum cost path from 
+\begin_inset Formula $s$
+\end_inset
+
+ to 
+\begin_inset Formula $t$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Example
+Another combinatorial optimization problem is the 
+\series bold
+traveling salesman problem
+\series default
+.
+ Given 
+\begin_inset Formula $V$
+\end_inset
+
+ with metric 
+\begin_inset Formula $d(u,v)$
+\end_inset
+
+ between 
+\begin_inset Formula $u,v\in V$
+\end_inset
+
+, find the minimum length tour.
+\end_layout
+
+\begin_layout Standard
+Oftentimes, it is useful to encode a continuous optimization problem as
+ a combinatorial optimization problem, and vice versa.
+ For example, shortest path can be encoded as a minimum cost flow problem
+ with unit capacities and 
+\begin_inset Formula $r=1$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Linear Programming
+\end_layout
+
+\begin_layout Subsection
+Introduction to Linear Programming
+\end_layout
+
+\begin_layout Subsubsection
+Standard Form
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Linear programming 
+\series default
+(LP) is a method to encode linear optimization problems in the form:
+\begin_inset Formula 
+\begin{align*}
+\max\text{} & \boldsymbol{c}^{\intercal}\boldsymbol{x}\\
+\text{s.t. } & \boldsymbol{a_{i}}^{\intercal}\boldsymbol{x}\leq b_{i},i\in C_{1}\\
+ & \boldsymbol{a_{i}}^{\intercal}\boldsymbol{x}=b_{i},i\in C_{2}\\
+ & \boldsymbol{a_{i}}^{\intercal}\boldsymbol{x}\geq b_{i},i\in C_{3}
+\end{align*}
+
+\end_inset
+
+It is advantageous to write LPs in standard form:
+\begin_inset Formula 
+\begin{align*}
+\max\text{} & \boldsymbol{c}^{\intercal}\boldsymbol{x}\\
+\text{s.t. } & \boldsymbol{a_{i}}^{\intercal}\boldsymbol{x}\leq b_{i},i\in1,\dots,m\\
+ & x_{j}\geq0,j\in1,\dots,n
+\end{align*}
+
+\end_inset
+
+Note that an unconstrained variable 
+\begin_inset Formula $x_{j}$
+\end_inset
+
+ can be replaced by 
+\begin_inset Formula $x_{j}^{+}-x_{j}^{-}$
+\end_inset
+
+ where 
+\begin_inset Formula $x_{j}^{+},x_{j}^{-}\geq0$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
+Geometric View
+\end_layout
+
+\begin_layout Standard
+Each constraint in an LP is a halfspace in 
+\begin_inset Formula $\mathbb{R}^{m}$
+\end_inset
+
+ whose intersection creates the feasible region.
+ We wish to move as far as possible in the direction of 
+\begin_inset Formula $\boldsymbol{c}$
+\end_inset
+
+ while staying in the feasible region.
+ Rewriting an LP in standard form places the feasible region in the 1st
+ hyperquadrant.
+\end_layout
+
+\begin_layout Subsubsection
+Applications
+\end_layout
+
+\begin_layout Standard
+A fundamental application of LP is the 
+\series bold
+optimal production
+\series default
+ problem.
+ Given 
+\begin_inset Formula $n$
+\end_inset
+
+ products and 
+\begin_inset Formula $m$
+\end_inset
+
+ materials, where one unit of product 
+\begin_inset Formula $j$
+\end_inset
+
+ uses 
+\begin_inset Formula $a_{ij}$
+\end_inset
+
+ of material 
+\begin_inset Formula $i$
+\end_inset
+
+.
+ There are 
+\begin_inset Formula $b_{i}$
+\end_inset
+
+ units of material 
+\begin_inset Formula $i$
+\end_inset
+
+ available, and product 
+\begin_inset Formula $j$
+\end_inset
+
+ yields profit 
+\begin_inset Formula $c_{j}$
+\end_inset
+
+ per unit.
+ How many of each product should be produced to maximize profit?
+\begin_inset Formula 
+\begin{align*}
+\max\text{} & \boldsymbol{c}^{\intercal}\boldsymbol{x}\\
+\text{s.t. } & \boldsymbol{a_{i}}^{\intercal}\boldsymbol{x}\leq b_{i},i=1,\dots,m\\
+ & x_{j}\geq0,j=1,\dots,n
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+LP Facts
+\end_layout
+
+\begin_layout Enumerate
+Feasible regions of LPs (i.e., polyhedrons) are convex.
+\end_layout
+
+\begin_layout Enumerate
+Sets of optimal solutions of LPs are convex.
+ In fact, the set of optimal solutions of an LP is a face of the polyhedron
+ created by the feasible region.
+ This face is the intersection of 
+\begin_inset Formula $P$
+\end_inset
+
+ with the hyperplane 
+\begin_inset Formula $\boldsymbol{c}^{\intercal}\boldsymbol{x}=OPT$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+At any vertex, 
+\begin_inset Formula $n$
+\end_inset
+
+ linearly independent constraints are satisfied with equality (i.e., are tight).
+\end_layout
+
+\begin_layout Enumerate
+An LP either a) has an optimal solution, b) is unbounded, or c) is infeasible.
+\end_layout
+
+\begin_layout Subsection
+The Fundamental Theorem of Linear Programming
+\end_layout
+
+\begin_layout Theorem
+If an LP in standard form has an optimal solution, then it has a vertex
+ optimal solution.
+\end_layout
+
+\begin_layout Proof
+For the sake of contradiction, suppose such an LP does not have a vertex
+ optimal solution.
+ Choose a non-vertex optimal solution 
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+ with the maximum number of tight constraints.
+ Because this solution is not a vertex, 
+\begin_inset Formula $\exists\boldsymbol{y}\neq0$
+\end_inset
+
+ such that 
+\begin_inset Formula $\boldsymbol{x}\pm\boldsymbol{y}$
+\end_inset
+
+ are both feasible.
+ 
+\series bold
+
+\begin_inset Formula $\boldsymbol{y}$
+\end_inset
+
+
+\series default
+ is perpendicular to 
+\begin_inset Formula $\boldsymbol{c}$
+\end_inset
+
+ because 
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+ is optimal and perpendicular to all tight constraints because if not, 
+\begin_inset Formula $\boldsymbol{x}\pm\boldsymbol{y}$
+\end_inset
+
+ would not both be feasible.
+\end_layout
+
+\begin_layout Proof
+Choose 
+\begin_inset Formula $\boldsymbol{y}$
+\end_inset
+
+ such that 
+\begin_inset Formula $y_{j}<0$
+\end_inset
+
+ for some 
+\begin_inset Formula $j$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ be the largest constant such that 
+\begin_inset Formula $\boldsymbol{x}+\alpha\boldsymbol{y}$
+\end_inset
+
+ is feasible.
+ Such an 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ exists because either 
+\begin_inset Formula $x_{j}<0$
+\end_inset
+
+ or we exit the feasible region.
+ Thus, at the point 
+\begin_inset Formula $\boldsymbol{x}+\alpha\boldsymbol{y}$
+\end_inset
+
+, an additional constraint becomes tight, a contradiction.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Corollary
+If an LP in standard form has an optimal solution, then there is an optimal
+ solution with at most 
+\begin_inset Formula $m$
+\end_inset
+
+ nonzero variables.
+ For example, in the optimal production problem, there exists an optimal
+ plan with at most 
+\begin_inset Formula $m$
+\end_inset
+
+ products.
+\end_layout
+
+\end_body
+\end_document

@@ -1,0 +1,841 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\begin_modules
+theorems-ams
+algolyx
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date true
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 1in
+\topmargin 1in
+\rightmargin 1in
+\bottommargin 1in
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip medskip
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Convex Optimization Problems
+\end_layout
+
+\begin_layout Section
+Convex Optimization Problems
+\end_layout
+
+\begin_layout Subsection
+Standard Form
+\end_layout
+
+\begin_layout Standard
+A 
+\series bold
+convex optimization problem
+\series default
+ is a problem of the form:
+\begin_inset Formula 
+\begin{align*}
+\min\text{ } & f(\boldsymbol{x})\\
+\text{s.t. } & \boldsymbol{x}\in\mathcal{X}
+\end{align*}
+
+\end_inset
+
+Where 
+\begin_inset Formula $\mathcal{X}\in\mathbb{R}^{n}$
+\end_inset
+
+ is a convex set, and 
+\begin_inset Formula $f:\mathbb{R}^{n}\rightarrow\mathbb{R}$
+\end_inset
+
+ is a convex function.
+ We often put these problems in standard form:
+\begin_inset Formula 
+\begin{align*}
+\min\text{ } & f(\boldsymbol{x})\\
+\text{s.t. } & g_{i}(\boldsymbol{x})\leq0,i\in\mathcal{C}_{1}\\
+ & \boldsymbol{a}_{i}^{\intercal}\boldsymbol{x}=b_{i},i\in\mathcal{C}_{2}
+\end{align*}
+
+\end_inset
+
+Where 
+\begin_inset Formula $g_{i}$
+\end_inset
+
+ is a convex function.
+ When there is no objective function, we call it a 
+\series bold
+convex feasibility problem
+\series default
+ – we are just trying to find if 
+\begin_inset Formula $\mathcal{X}$
+\end_inset
+
+ is non-empty.
+ Recall that because every function here is convex, every locally optimal
+ 
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+ is also a globally optimal 
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Representation
+\end_layout
+
+\begin_layout Standard
+The term convex optimization problem refers to a family of 
+\series bold
+instances
+\series default
+ (i.e., with concrete numerical constraints) described by the problem parameters,
+ given implicitly by an oracle, or something in between.
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+Explicit: LP standard form.
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+Oracle: A separation oracle for 
+\begin_inset Formula $\mathcal{X}$
+\end_inset
+
+ and 
+\begin_inset Formula $epi(f)$
+\end_inset
+
+ which we can query 
+\begin_inset Formula $\boldsymbol{x}\stackrel{?}{\in}\mathcal{X}$
+\end_inset
+
+ or 
+\begin_inset Formula $\boldsymbol{r}\stackrel{?}{\in}epi(f)$
+\end_inset
+
+.
+ Then, given a general range for the optimal value 
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+, the oracle can solve the problem in polynomial time.
+\end_layout
+
+\begin_layout Labeling
+\labelwidthstring 00.00.0000
+In-between: For example, graph-encoded problems like LP fractional relaxations
+ of TSP.
+ In this case, the LP representation uses a graph as a 
+\begin_inset Quotes eld
+\end_inset
+
+backend
+\begin_inset Quotes erd
+\end_inset
+
+, which in implementation uses a separation oracle.
+\end_layout
+
+\begin_layout Standard
+Oftentimes, there exist convex optimization problems which do not seem convex,
+ but can be shown to be 
+\series bold
+equivalent
+\series default
+ to a convex optimization problem in one of the above classes.
+\end_layout
+
+\begin_layout Section
+Interlude: PSD Matrices
+\end_layout
+
+\begin_layout Definition
+A 
+\series bold
+symmetric matrix
+\series default
+ is a matrix 
+\begin_inset Formula ${\bf A}\in\mathbb{R}^{n\times n}$
+\end_inset
+
+ such that 
+\begin_inset Formula ${\bf A}_{ij}={\bf A}_{ji}$
+\end_inset
+
+ for all 
+\begin_inset Formula $i,j$
+\end_inset
+
+.
+ Note that the set of all these matrices forms a cone denoted 
+\begin_inset Formula $S^{n}$
+\end_inset
+
+.
+ A matrix is symmetric if and only if it is orthogonally diagonalizable;
+ that is, if 
+\begin_inset Formula ${\bf A}={\bf Q}{\bf D}{\bf Q}^{\intercal}$
+\end_inset
+
+ where 
+\begin_inset Formula ${\bf Q}$
+\end_inset
+
+ is an orthogonal matrix and 
+\begin_inset Formula ${\bf D}=diag(\lambda_{1},\dots,\lambda_{n})$
+\end_inset
+
+.
+ The columns of 
+\begin_inset Formula ${\bf Q}$
+\end_inset
+
+ are the normalized eigenvectors of 
+\begin_inset Formula ${\bf A}$
+\end_inset
+
+.
+ Geometrically, 
+\begin_inset Formula ${\bf A}$
+\end_inset
+
+ scales the space along the basis 
+\begin_inset Formula ${\bf Q}$
+\end_inset
+
+ with scaling factors 
+\begin_inset Formula $\lambda_{i}$
+\end_inset
+
+, which can be positive, negative, or zero.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Definition
+A 
+\series bold
+positive semi-definite (PSD) matrix
+\series default
+ is a symmetric matrix 
+\begin_inset Formula ${\bf A}\in\mathbb{R}^{n\times n}$
+\end_inset
+
+ where all the eigenvalues of 
+\begin_inset Formula ${\bf A}$
+\end_inset
+
+ are non-negative; we denote this by 
+\begin_inset Formula ${\bf A}\succeq0$
+\end_inset
+
+.
+ This forms a cone denoted 
+\begin_inset Formula $S_{+}^{n}$
+\end_inset
+
+.
+ Geometrically, 
+\begin_inset Formula ${\bf A}$
+\end_inset
+
+ performs a non-negative scaling along the orthonormal basis 
+\begin_inset Formula ${\bf Q}$
+\end_inset
+
+.
+ A matrix is PSD if and only if:
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\boldsymbol{x}^{\intercal}{\bf A}\boldsymbol{x}\geq0\text{ }\forall\boldsymbol{x}$
+\end_inset
+
+ with 
+\begin_inset Formula $\boldsymbol{x}^{\intercal}{\bf A}\boldsymbol{x}$
+\end_inset
+
+ convex.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula ${\bf A}^{1/2}$
+\end_inset
+
+ is PSD.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula ${\bf A}={\bf B}^{\intercal}{\bf B}$
+\end_inset
+
+ for some matrix 
+\begin_inset Formula ${\bf B}$
+\end_inset
+
+.
+ Note that this encodes 
+\begin_inset Quotes eld
+\end_inset
+
+pairwise similarity
+\begin_inset Quotes erd
+\end_inset
+
+ relationships.
+ This also shows that 
+\begin_inset Formula $\boldsymbol{x}^{\intercal}{\bf A}\boldsymbol{x}=\|{\bf B}\boldsymbol{x}\|_{2}^{2}$
+\end_inset
+
+; that is, the outer product of 
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+ and 
+\begin_inset Formula ${\bf A}$
+\end_inset
+
+ represents the squared length of the vector 
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+ after the linear transformation 
+\begin_inset Formula ${\bf B}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula ${\bf A}$
+\end_inset
+
+ is a sum of vector outer products.
+\end_layout
+
+\begin_layout Section
+Convex Optimization Problems
+\end_layout
+
+\begin_layout Subsection
+Linear Fractional Programming
+\end_layout
+
+\begin_layout Standard
+We know that LPs are convex (because they are linear), but linear fractional
+ programs are also convex (in fact quasiconvex/quasilinear).
+ A linear fractional program is defined as:
+\begin_inset Formula 
+\begin{align*}
+\min\text{ } & \frac{\boldsymbol{c}^{\intercal}\boldsymbol{x}+d}{\boldsymbol{e}^{\intercal}\boldsymbol{x}+f}\\
+\text{s.t. } & {\bf A}\boldsymbol{x}\preceq\boldsymbol{b}\\
+ & \boldsymbol{e}^{\intercal}\boldsymbol{x}+f>0
+\end{align*}
+
+\end_inset
+
+However, they are not convex in this form.
+ Note that the sublevel sets are convex, which is a hint that we are looking
+ for a variable change to transform this program into a convex program.
+ In this case, we have the new variables
+\begin_inset Formula 
+\begin{align*}
+\boldsymbol{y} & =\frac{\boldsymbol{x}}{\boldsymbol{e}^{\intercal}\boldsymbol{x}+f}\\
+\boldsymbol{z} & =\frac{1}{\boldsymbol{e}^{\intercal}\boldsymbol{x}+f}
+\end{align*}
+
+\end_inset
+
+Then, we know that 
+\begin_inset Formula $(\boldsymbol{y},\boldsymbol{z})$
+\end_inset
+
+ is a solution if 
+\begin_inset Formula $\boldsymbol{e}^{\intercal}\boldsymbol{y}+f\boldsymbol{z}=1$
+\end_inset
+
+.
+ Note also that we are allowed to close strict inequalities because it keeps
+ equivalence in the limit.
+ So we end up with the convex program:
+\begin_inset Formula 
+\begin{align*}
+\min\text{ } & \boldsymbol{c}^{\intercal}\boldsymbol{y}+d\boldsymbol{z}\\
+\text{s.t. } & {\bf A}\boldsymbol{y}\preceq\boldsymbol{bz}\\
+ & \boldsymbol{e}^{\intercal}\boldsymbol{y}+f\boldsymbol{z}=1
+\end{align*}
+
+\end_inset
+
+This is a variant of optimal production where each product requires some
+ initial investment and we wish to maximize ROI.
+\end_layout
+
+\begin_layout Subsection
+Geometric Programming
+\end_layout
+
+\begin_layout Definition
+A 
+\series bold
+monomial
+\series default
+ is a function 
+\begin_inset Formula $f:\mathbb{R}_{+}^{n}\rightarrow\mathbb{R}_{+}$
+\end_inset
+
+ such that
+\begin_inset Formula 
+\[
+f(\boldsymbol{x})=c\boldsymbol{x}_{1}^{a_{1}}\dots\boldsymbol{x}_{n}^{a_{n}},c\geq0,a_{i}\in\mathbb{R}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Definition
+A 
+\series bold
+posynomial
+\series default
+ is a sum of monomials, i.e., 
+\begin_inset Formula $\sum_{i}f_{i}(\boldsymbol{x})$
+\end_inset
+
+ where each 
+\begin_inset Formula $f_{i}$
+\end_inset
+
+ is a monomial.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A 
+\series bold
+geometric program
+\series default
+ is an LP representation of volume/surface area minimization problems which
+ uses monomials and posynomials:
+\begin_inset Formula 
+\begin{align*}
+\min\text{ } & f_{0}(\boldsymbol{x})\\
+\text{s.t. } & f_{i}(\boldsymbol{x})\leq b_{i},i\in\mathcal{C}_{1}\\
+ & h_{i}(\boldsymbol{x})=b_{i},i\in\mathcal{C}_{2}\\
+ & \boldsymbol{x}\succeq0
+\end{align*}
+
+\end_inset
+
+Where each 
+\begin_inset Formula $f_{i}$
+\end_inset
+
+ is a posynomial, each 
+\begin_inset Formula $h_{i}$
+\end_inset
+
+ is a monomial, and all 
+\begin_inset Formula $b_{i}>0$
+\end_inset
+
+ (wlog 1).
+ To prove equivalence to a convex program, simply change the variables to
+ logs.
+ Then each monomial becomes a convex exponent, each posynomial is a sum
+ of convex exponents, and the equality constraint reduces to an affine constrain
+t by taking a double log.
+\end_layout
+
+\begin_layout Subsection
+Quadratic Programming
+\end_layout
+
+\begin_layout Standard
+In a 
+\series bold
+quadratic program
+\series default
+, we would like to minimize a convex quadratic function (containing the
+ PSD matrix 
+\begin_inset Formula ${\bf P}$
+\end_inset
+
+) over a polyhedron.
+\begin_inset Formula 
+\begin{align*}
+\min\text{ } & \boldsymbol{x}^{\intercal}{\bf P}\boldsymbol{x}+\boldsymbol{c}^{\intercal}\boldsymbol{x}+d\\
+\text{s.t. } & {\bf A}\boldsymbol{x}\preceq\boldsymbol{b}
+\end{align*}
+
+\end_inset
+
+The sublevel sets of this convex quadratic unction are scaled copies of
+ the ellipsoid generated by 
+\begin_inset Formula ${\bf P}$
+\end_inset
+
+ centered at 
+\begin_inset Formula $\boldsymbol{0}$
+\end_inset
+
+.
+ Thus, in a quadratic program, we are attempting to minimize the size of
+ an ellipsoid such that it satisfies the constraints.
+ One example is the constrained least squares problem from statistics.
+ To see this, note that the objective function 
+\begin_inset Formula $\|{\bf A}\boldsymbol{x}-\boldsymbol{b}\|_{2}^{2}=\boldsymbol{x}^{\intercal}{\bf A}^{\intercal}{\bf A}\boldsymbol{x}-2\boldsymbol{b}^{\intercal}{\bf A}\boldsymbol{x}+\boldsymbol{b}^{\intercal}\boldsymbol{b}$
+\end_inset
+
+ is in fact a convex quadratic function when 
+\begin_inset Formula ${\bf A}$
+\end_inset
+
+ is PSD.
+ Another useful example is the distance between polyhedrons problem.
+ Given 
+\begin_inset Formula ${\bf A}\boldsymbol{x}\preceq\boldsymbol{b}$
+\end_inset
+
+ and 
+\begin_inset Formula ${\bf C}\boldsymbol{y}\preceq\boldsymbol{d}$
+\end_inset
+
+, we'd like to find 
+\begin_inset Formula $\boldsymbol{z}$
+\end_inset
+
+ such that 
+\begin_inset Formula $\|\boldsymbol{z}\|_{2}^{2}$
+\end_inset
+
+ is minimized.
+ So we have the quadratic program:
+\begin_inset Formula 
+\begin{align*}
+\min\text{ } & \boldsymbol{z}^{\intercal}{\bf I}\boldsymbol{z}\\
+\text{s.t. } & \boldsymbol{z}=\boldsymbol{y}-\boldsymbol{x}\\
+ & {\bf A}\boldsymbol{x}\preceq\boldsymbol{b}\\
+ & {\bf C}\boldsymbol{y}\preceq\boldsymbol{d}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Conic Optimization Problems
+\end_layout
+
+\begin_layout Standard
+A 
+\series bold
+conic optimization problem
+\series default
+ is a problem of the form:
+\begin_inset Formula 
+\begin{align*}
+\min\text{ } & \boldsymbol{c}^{\intercal}\boldsymbol{x}\\
+\text{s.t. } & {\bf A}\boldsymbol{x}+\boldsymbol{b}\in K
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Where 
+\begin_inset Formula $K$
+\end_inset
+
+ is a convex cone.
+ All conic problems are convex.
+\end_layout
+
+\begin_layout Subsection
+Stochastic Programming
+\end_layout
+
+\begin_layout Standard
+A 
+\series bold
+stochasic program
+\series default
+ is a conic program where each constraint includes random variables.
+ In particular, if each 
+\begin_inset Formula $\boldsymbol{a}_{i}$
+\end_inset
+
+ is a Gaussian random variable with mean 
+\begin_inset Formula $\bar{\boldsymbol{a}_{i}}$
+\end_inset
+
+ and covariance matrix 
+\begin_inset Formula $\sum_{i}$
+\end_inset
+
+, we have the stochastic program:
+\begin_inset Formula 
+\begin{align*}
+\min\text{ } & \boldsymbol{c}^{\intercal}\boldsymbol{x}\\
+\text{s.t. } & \boldsymbol{a}_{i}^{\intercal}\boldsymbol{x}\leq\boldsymbol{b}_{i}\text{ w.p. }\geq0.9
+\end{align*}
+
+\end_inset
+
+Though this problem does not look conic at first, we can show that it is
+ in fact contained in the second-order cone 
+\begin_inset Formula $K=\{(\boldsymbol{x},t):\|\boldsymbol{x}\|_{2}\leq t\}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\boldsymbol{u}_{i}$
+\end_inset
+
+ be a univariate Gaussian random variable with mean 
+\begin_inset Formula $\bar{\boldsymbol{u}_{i}}:=\bar{\boldsymbol{a}_{i}}^{\intercal}\boldsymbol{x}$
+\end_inset
+
+ and standard deviation 
+\begin_inset Formula $\boldsymbol{\sigma}_{i}:=\sqrt{\boldsymbol{x}^{\intercal}\sum_{i}\boldsymbol{x}}=\|\sum_{i}^{1/2}\boldsymbol{x}\|_{2}$
+\end_inset
+
+.
+ Then 
+\begin_inset Formula $\boldsymbol{u}_{i}\leq\boldsymbol{b}_{i}$
+\end_inset
+
+ w.p.
+ 
+\begin_inset Formula $\Phi((\boldsymbol{b}_{i}-\bar{\boldsymbol{u}_{i}})/\boldsymbol{\sigma}_{i})$
+\end_inset
+
+, where 
+\begin_inset Formula $\Phi$
+\end_inset
+
+ is the Gaussian cdf.
+ Then, we require w.p.
+ 
+\begin_inset Formula $\geq0.9$
+\end_inset
+
+ to obtain:
+\begin_inset Formula 
+\[
+\frac{\boldsymbol{b}_{i}-\bar{\boldsymbol{u}_{i}}}{\boldsymbol{\sigma}_{i}}\geq\Phi^{-1}(0.9)\approx1.3\approx\frac{1}{0.77}
+\]
+
+\end_inset
+
+Thus:
+\begin_inset Formula 
+\[
+\|\sum\phantom{}_{i}^{1/2}\boldsymbol{x}\|_{2}\leq0.77(\boldsymbol{b}_{i}-\boldsymbol{a}_{i}^{\intercal}\boldsymbol{x})\implies(\|\sum\phantom{}_{i}^{1/2}\boldsymbol{x}\|_{2},0.77(\boldsymbol{b}_{i}-\boldsymbol{a}_{i}^{\intercal}\boldsymbol{x}))\in K
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Semi-definite Programming
+\end_layout
+
+\begin_layout Standard
+A 
+\series bold
+semi-definite program
+\series default
+ is a conic program where 
+\begin_inset Formula $K=S_{+}^{n}$
+\end_inset
+
+.
+ If 
+\begin_inset Formula ${\bf F}_{i}$
+\end_inset
+
+ and 
+\begin_inset Formula ${\bf G}$
+\end_inset
+
+ are matrices, then we have the form:
+\begin_inset Formula 
+\begin{align*}
+\min\text{ } & \boldsymbol{c}^{\intercal}\boldsymbol{x}\\
+\text{s.t. } & \boldsymbol{x}_{1}{\bf F}_{1}+\boldsymbol{x}_{2}{\bf F}_{2}+\dots+\boldsymbol{x}_{n}{\bf F}_{n}+{\bf G}\succeq\boldsymbol{0}
+\end{align*}
+
+\end_inset
+
+These programs often arise when fitting a distribution to observed data,
+ or as a relaxation to combinatorial programs which encode pairwise relationship
+s.
+ For example, we can show that the maximum cut problem is a semi-definite
+ program.
+ Given 
+\begin_inset Formula $G=(V,E)$
+\end_inset
+
+, we wish to partition 
+\begin_inset Formula $V$
+\end_inset
+
+ into 
+\begin_inset Formula $(S,V\setminus S)$
+\end_inset
+
+ maximizing the number of 
+\begin_inset Formula $e\in E$
+\end_inset
+
+ with exactly one end in each partition.
+ The corresponding combinatorial program is:
+\begin_inset Formula 
+\begin{align*}
+\max\text{ } & \sum_{(i,j)\in E}\frac{1-\boldsymbol{x}_{i}\boldsymbol{x}_{j}}{2}\\
+\text{s.t. } & \boldsymbol{x}_{i}\in\{-1,1\}\text{ }\forall i\in V
+\end{align*}
+
+\end_inset
+
+We can relax this program to a vector program, which allows us to encode
+ the probability of cutting an edge given its similarity to another edge:
+\begin_inset Formula 
+\begin{align*}
+\max\text{ } & \sum_{(i,j)\in E}\frac{1-\boldsymbol{x}_{i}\boldsymbol{x}_{j}}{2}\\
+\text{s.t. } & \|\boldsymbol{x}_{i}\|_{2}=1\\
+ & \boldsymbol{x}_{i}\in\mathbb{R}^{n}
+\end{align*}
+
+\end_inset
+
+Notice that this program encodes pairwise relationships between 
+\begin_inset Formula $i$
+\end_inset
+
+ and 
+\begin_inset Formula $j$
+\end_inset
+
+.
+ So, we can encode this program as an semi-definite program, which we know
+ is conic:
+\begin_inset Formula 
+\begin{align*}
+\max\text{ } & \sum_{(i,j)\in E}\frac{1-{\bf X}_{ij}}{2}\\
+\text{s.t. } & {\bf X}_{ii}=1\\
+ & \boldsymbol{x}_{i}\in S_{+}^{n}
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

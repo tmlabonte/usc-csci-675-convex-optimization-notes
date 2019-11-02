@@ -1,0 +1,842 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\begin_modules
+theorems-ams
+algolyx
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing other 1.15
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 2
+\use_package amssymb 2
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date true
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 1in
+\topmargin 1in
+\rightmargin 1in
+\bottommargin 1in
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip medskip
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\M}{\mathcal{M}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\I}{\mathcal{I}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\X}{\mathcal{X}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\renewcommand{\O}{\mathcal{O}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\P}{\mathcal{P}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\E}{\mathbb{E}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\R}{\mathbb{R}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Title
+Matroid Intersection Minimax
+\end_layout
+
+\begin_layout Section
+Preliminaries
+\end_layout
+
+\begin_layout Standard
+In this section, we'll recall some basic matroid properties and prove a
+ useful lemma.
+ Let 
+\begin_inset Formula $\M=(\X,\I)$
+\end_inset
+
+ be a matroid.
+\end_layout
+
+\begin_layout Definition
+The 
+\series bold
+rank
+\series default
+ of a set 
+\begin_inset Formula $S$
+\end_inset
+
+ in 
+\begin_inset Formula $\M$
+\end_inset
+
+, denoted 
+\begin_inset Formula $r_{\M}(S)$
+\end_inset
+
+ is the maximum size of an independent set contained in 
+\begin_inset Formula $S$
+\end_inset
+
+.
+ That is,
+\begin_inset Formula 
+\[
+r_{\M}(S)=\max_{\substack{T\subseteq S\\
+T\in\I
+}
+}|T|
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Definition
+
+\series bold
+Matroid deletion 
+\series default
+is the removal of a subset of the ground set of a matroid.
+ That is, for 
+\begin_inset Formula $T\subseteq\X$
+\end_inset
+
+, we define 
+\begin_inset Formula $\M\setminus T=(\X\setminus T,\I^{\prime})$
+\end_inset
+
+ where 
+\begin_inset Formula $S\in\I^{\prime}$
+\end_inset
+
+ if and only if 
+\begin_inset Formula $S\in\I$
+\end_inset
+
+ for 
+\begin_inset Formula $S\subseteq\X\setminus T$
+\end_inset
+
+.
+ In terms of the rank function,
+\begin_inset Formula 
+\[
+r_{\M\setminus T}(S)=r_{\M}(S)\text{ with }S\subseteq\X\setminus T
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Definition
+
+\series bold
+Matroid contraction 
+\series default
+is the permanent inclusion of a certain set into the ground set; we then
+ measure independence relative to this set.
+ That is, for 
+\begin_inset Formula $T\subseteq\X$
+\end_inset
+
+, we define 
+\begin_inset Formula $\M/T=(\X/T,\I^{\prime})$
+\end_inset
+
+ where 
+\begin_inset Formula $S\in\I^{\prime}$
+\end_inset
+
+if and only if 
+\begin_inset Formula $S\subseteq\X\setminus T$
+\end_inset
+
+ and 
+\begin_inset Formula $T\cup S\in\I$
+\end_inset
+
+.
+ In terms of the rank function,
+\begin_inset Formula 
+\[
+r_{\M/T}(S)=r_{\M}(S\cup T)-r_{\M}(T)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Lemma
+The rank function is submodular.
+ That is, for any matroid 
+\begin_inset Formula $\M=(\X,\I)$
+\end_inset
+
+ and 
+\begin_inset Formula $S,T\subseteq\X$
+\end_inset
+
+,
+\begin_inset Formula 
+\[
+r_{\M}(S)+r_{\M}(T)\geq r_{\M}(S\cup T)+r_{\M}(S\cap T)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Let 
+\begin_inset Formula $B$
+\end_inset
+
+ be a base of 
+\begin_inset Formula $S\cap T$
+\end_inset
+
+.
+ We extend 
+\begin_inset Formula $B$
+\end_inset
+
+ to a base 
+\begin_inset Formula $B_{1}$
+\end_inset
+
+ of 
+\begin_inset Formula $S$
+\end_inset
+
+ and a base 
+\begin_inset Formula $B_{2}$
+\end_inset
+
+ of 
+\begin_inset Formula $T$
+\end_inset
+
+ via the exchange property.
+ Then, by the inclusion-exclusion principle, we have:
+\begin_inset Formula 
+\begin{align*}
+r_{\M}(S)+r_{\M}(T)-r_{\M}(S\cap T) & =|B_{1}|+|B_{2}|-|B|\\
+ & =|B_{1}\cup B_{2}|
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Claim
+\begin_inset Formula $S\cup T\subseteq span(B_{1}\cup B_{2})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+We have that 
+\begin_inset Formula $S\subseteq span(B_{1})$
+\end_inset
+
+ and 
+\begin_inset Formula $T\subseteq span(B_{2})$
+\end_inset
+
+ because they are bases.
+ Thus 
+\begin_inset Formula $S\subseteq span(B_{1}\cup B_{2})$
+\end_inset
+
+ and 
+\begin_inset Formula $T\subseteq span(B_{1}\cup B_{2})$
+\end_inset
+
+, implying that 
+\begin_inset Formula $S\cup T\subseteq span(B_{1}\cup B_{2})$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Proof
+Therefore, 
+\begin_inset Formula 
+\begin{align*}
+|B_{1}\cup B_{2}| & \geq r_{\M}(B_{1}\cup B_{2})\\
+ & =r_{\M}(span(B_{1}\cup B_{2}))\\
+ & \geq r_{\M}(S\cup T)
+\end{align*}
+
+\end_inset
+
+Thus we obtain our desired inequality:
+\begin_inset Formula 
+\[
+r_{\M}(S)+r_{\M}(T)-r_{\M}(S\cap T)\geq r_{\M}(S\cup T)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Matroid Intersection Minimax
+\end_layout
+
+\begin_layout Subsection
+Matroid Intersection Minimax Theorem
+\end_layout
+
+\begin_layout Theorem
+Given matroids 
+\begin_inset Formula $\M_{1}=(\X,\I_{1})$
+\end_inset
+
+ and 
+\begin_inset Formula $\M_{2}=(\X,\I_{2})$
+\end_inset
+
+ with rank functions 
+\begin_inset Formula $r_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $r_{2}$
+\end_inset
+
+, let their intersection be 
+\begin_inset Formula $\M_{1}\cap\M_{2}=(\X,\I_{1}\cap\I_{2})$
+\end_inset
+
+.
+ Then, the size of the largest independent set in 
+\begin_inset Formula $\M_{1}\cap\M_{2}$
+\end_inset
+
+ is equal to the smallest difference in rank between two partitions of 
+\begin_inset Formula $\X$
+\end_inset
+
+.
+ That is,
+\begin_inset Formula 
+\[
+\max_{S\in\I_{1}\cap\I_{2}}|S|=\min_{A\subseteq\X}r_{1}(A)-r_{2}(\bar{A})
+\]
+
+\end_inset
+
+Note that this is a statement of duality.
+ Furthermore, the set 
+\begin_inset Formula $A$
+\end_inset
+
+ is constructed such that 
+\begin_inset Formula $\M_{1}$
+\end_inset
+
+ is limiting on 
+\begin_inset Formula $A$
+\end_inset
+
+ and 
+\begin_inset Formula $\M_{2}$
+\end_inset
+
+ is limiting on 
+\begin_inset Formula $\bar{A}$
+\end_inset
+
+ .
+\end_layout
+
+\begin_layout Proof
+We first show weak duality.
+ Let 
+\begin_inset Formula $S\in\I_{1}\cap\I_{2}$
+\end_inset
+
+ and 
+\begin_inset Formula $A\subseteq\X$
+\end_inset
+
+.
+ Then we have that:
+\begin_inset Formula 
+\begin{align*}
+|S| & =|S\cap A|+|S\cap(\bar{A})|\\
+ & \leq r_{1}(A)+r_{2}(\bar{A})
+\end{align*}
+
+\end_inset
+
+That was pretty simple, but showing strong duality is not as easy.
+ We will prove it via induction on 
+\begin_inset Formula $|\X|$
+\end_inset
+
+ with the inductive hypothesis that the theorem is true for all matroids
+ with ground set size less than 
+\begin_inset Formula $|\X|$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\M_{1}=(\X\cup\{e\},\I_{1})$
+\end_inset
+
+ and 
+\begin_inset Formula $\M_{2}=(\X\cup\{e\},\I_{2})$
+\end_inset
+
+ with rank functions 
+\begin_inset Formula $r_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $r_{2}$
+\end_inset
+
+.
+ By deleting 
+\begin_inset Formula $e$
+\end_inset
+
+ from both matroids, the inductive hypothesis implies that:
+\begin_inset Formula 
+\begin{equation}
+\max_{\substack{S\in\I_{1}\cap\I_{2}\\
+S\not\ni e
+}
+}|S|=\min_{A\subseteq\X}r_{1}(A)-r_{2}(\bar{A})
+\end{equation}
+
+\end_inset
+
+Let 
+\begin_inset Formula $k$
+\end_inset
+
+ be the value of Equation 1.
+ When we add 
+\begin_inset Formula $e$
+\end_inset
+
+ back into the ground set, the LHS either stays constant or increases by
+ 1, while the RHS has to increase by 1.
+ That is,
+\begin_inset Formula 
+\begin{equation}
+\forall B\subseteq\X,r_{1}(B)+r_{2}(\bar{B}\cup\{e\})\geq k+1
+\end{equation}
+
+\end_inset
+
+Therefore, we can prove strong duality by showing that the LHS cannot possibly
+ stay constant when 
+\begin_inset Formula $e$
+\end_inset
+
+ is added into the ground set.
+ Assume for the sake of contradiction that the value of the LHS stays constant
+ when 
+\begin_inset Formula $e$
+\end_inset
+
+ is added into the ground set.
+ We now contract the matroids by 
+\begin_inset Formula $e$
+\end_inset
+
+.
+ Consider 
+\begin_inset Formula $\M_{1}^{\prime}=\M_{1}/\{e\}=(\X/\{e\},\I_{1}^{\prime})$
+\end_inset
+
+ and 
+\begin_inset Formula $\M_{2}^{\prime}=\M_{2}/\{e\}=(\X/\{e\},\I_{2}^{\prime})$
+\end_inset
+
+ with rank functions 
+\begin_inset Formula $r_{1}^{\prime}$
+\end_inset
+
+ and 
+\begin_inset Formula $r_{2}^{\prime}$
+\end_inset
+
+.
+ Then, since the LHS cannot improve,
+\begin_inset Formula 
+\[
+\max_{S\in\I_{1}^{\prime}\cap\I_{2}^{\prime}}|S\cup\{e\}|=\max_{S\in\I_{1}^{\prime}\cap\I_{2}^{\prime}}|S|+1\leq k
+\]
+
+\end_inset
+
+Therefore,
+\begin_inset Formula 
+\[
+\max_{S\in\I_{1}^{\prime}\cap\I_{2}^{\prime}}|S|\leq k-1
+\]
+
+\end_inset
+
+And,
+\begin_inset Formula 
+\[
+r_{i}^{\prime}(S)=r_{i}(S\cup\{e\})-1,i\in\{1,2\}
+\]
+
+\end_inset
+
+So,
+\begin_inset Formula 
+\begin{align*}
+r_{1}^{\prime}(S)+r_{2}^{\prime}(\bar{S}) & =r_{1}(S\cup\{e\})+r_{2}(\bar{S}\cup\{e\})-2
+\end{align*}
+
+\end_inset
+
+We apply the inductive hypothesis to obtain:
+\begin_inset Formula 
+\begin{align*}
+\min_{S\subseteq\X\setminus\{e\}}r_{1}^{\prime}(S)+r_{2}^{\prime}(\bar{S}) & \leq k-1\\
+\min_{S\subseteq\X\setminus\{e\}}r_{1}(S\cup\{e\})+r_{2}(\bar{S}\cup\{e\}) & \leq k+1
+\end{align*}
+
+\end_inset
+
+Fix 
+\begin_inset Formula $S$
+\end_inset
+
+ attaining the minimum to obtain:
+\begin_inset Formula 
+\begin{equation}
+r_{1}(S\cup\{e\})+r_{2}(\bar{S}\cup\{e\})\leq k+1
+\end{equation}
+
+\end_inset
+
+Combine Equations 1 and 3 to obtain:
+\begin_inset Formula 
+\[
+2k+1\geq r_{1}(A)+r_{2}(\bar{A})+r_{1}(S\cup\{e\})+r_{2}(\bar{S}\cup\{e\})
+\]
+
+\end_inset
+
+Invoking the submodularity of the rank function,
+\begin_inset Formula 
+\begin{align*}
+2k+1 & \geq r_{1}(A\cup S\cup\{e\})+r_{2}(\bar{A}\cap\bar{S})+r_{1}(A\cap S)+r_{2}(\bar{A}\cup\bar{S}\cup\{e\})\\
+ & =r_{1}(A\cup S\cup\{e\})+r_{2}(\overline{A\cup S})+r_{1}(A\cap S)+r_{2}(\overline{A\cap S}\cup\{e\})
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+The terms are now in the form of Equation 2, reaching a contradiction as
+ follows:
+\begin_inset Formula 
+\begin{align*}
+2k+1 & \geq k+1+k+1\\
+1 & \geq2
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Corollaries
+\end_layout
+
+\begin_layout Corollary
+The intersection of two matroid polytopes is integral for objective 
+\begin_inset Formula $\boldsymbol{1}$
+\end_inset
+
+.
+ That is, for objective 
+\begin_inset Formula $\boldsymbol{1}$
+\end_inset
+
+, the intersection of two matroid polytopes behaves as the polytope of the
+ matroid intersection.
+\end_layout
+
+\begin_layout Proof
+We have the definition of the matroid polytope intersection as the LP:
+\begin_inset Formula 
+\begin{align*}
+\max\text{ } & \sum_{i}x_{i}\\
+\text{s.t. } & \sum_{i\in T}x_{i}\leq r_{1}(T)\\
+ & \sum_{i\in T}x_{i}\leq r_{2}(T)\\
+ & \boldsymbol{x}\succeq0
+\end{align*}
+
+\end_inset
+
+Let 
+\begin_inset Formula $S$
+\end_inset
+
+ be the maximum cardinality independent set of 
+\begin_inset Formula $\M_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $\M_{2}$
+\end_inset
+
+.
+ Then 
+\begin_inset Formula $\boldsymbol{1}$
+\end_inset
+
+ is feasible for the above LP with value 
+\begin_inset Formula $|S|$
+\end_inset
+
+.
+ We take the dual LP:
+\begin_inset Formula 
+\begin{align*}
+\min\text{ } & \sum_{T\subseteq\X}r_{1}(T)y_{T}^{1}+\sum_{T\subseteq\X}r_{2}(T)y_{T}^{2}\\
+\text{s.t. } & \sum_{T\ni i}y_{T}^{1}+\sum_{T\ni i}y_{T}^{2}\geq1\\
+ & \boldsymbol{y}\succeq0
+\end{align*}
+
+\end_inset
+
+This LP is a fractional version of the partition of 
+\begin_inset Formula $\X$
+\end_inset
+
+ into 
+\begin_inset Formula $A$
+\end_inset
+
+ and 
+\begin_inset Formula $\bar{A}$
+\end_inset
+
+ that we saw earlier.
+ Thus from the Matroid Intersection Minimax Theorem, we obtain that there
+ exists an integral 
+\begin_inset Formula $A\subseteq\X$
+\end_inset
+
+ such that 
+\begin_inset Formula $r_{1}(A)+r_{2}(\bar{A})=|S|$
+\end_inset
+
+.
+ So, let 
+\begin_inset Formula $y_{A}^{1}=1,y_{T}^{2}=0$
+\end_inset
+
+ for 
+\begin_inset Formula $T\neq A$
+\end_inset
+
+ and 
+\begin_inset Formula $y_{\bar{A}}^{2}=1,y_{T}^{2}=0$
+\end_inset
+
+ for 
+\begin_inset Formula $T\neq\bar{A}$
+\end_inset
+
+.
+ This 
+\begin_inset Formula $\boldsymbol{y}$
+\end_inset
+
+ is feasible for the dual and the objective is:
+\begin_inset Formula 
+\begin{align*}
+\sum_{T\subseteq\X}r_{1}(T)y_{T}^{1}+\sum_{T\subseteq\X}r_{2}(T)y_{T}^{2} & =r_{1}(A)+r_{2}(\bar{A})\\
+ & =|S|
+\end{align*}
+
+\end_inset
+
+Thus by strong duality we have obtained an optimal integral solution.
+\end_layout
+
+\begin_layout Corollary
+K
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+{
+\backslash
+
+\begin_inset Quotes erd
+\end_inset
+
+a}
+\end_layout
+
+\end_inset
+
+nig's Theorem: In a bipartite graph, the maximum cardinality of a matching
+ is equal to the minimum cardinality of a vertex cover.
+\end_layout
+
+\begin_layout Proof
+An informal proof is that a bipartite graph is the intersection of two partition
+ matroids, wherein we let 
+\begin_inset Formula $A$
+\end_inset
+
+ be the subset of edges covered by the nodes on the left and 
+\begin_inset Formula $\bar{A}$
+\end_inset
+
+ be the subset of edges covered by the nodes on the right.
+ Then the cardinality of the maximum matching is 
+\begin_inset Formula $r_{1}(A)+r_{2}(\bar{A})$
+\end_inset
+
+ so the cardinality of the minimum vertex cover is equal.
+\end_layout
+
+\end_body
+\end_document

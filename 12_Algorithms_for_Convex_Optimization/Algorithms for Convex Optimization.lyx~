@@ -1,0 +1,922 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\begin_modules
+theorems-ams
+algolyx
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date true
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 1in
+\topmargin 1in
+\rightmargin 1in
+\bottommargin 1in
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip medskip
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Algorithms for Convex Optimization
+\end_layout
+
+\begin_layout Section
+Simplex Algorithm
+\end_layout
+
+\begin_layout Subsection
+Background
+\end_layout
+
+\begin_layout Standard
+The Simplex Algorithm, due to Dantzig in 1947, was the first methodical
+ procedure for solving linear programs.
+ It includes a family of algorithms parametrized by a 
+\series bold
+pivot rule
+\series default
+\emph on
+ 
+\emph default
+(essentially a choice of tie-breaker rules).
+ The algorithm is efficient in practice, but has exponential time complexity
+ in theory; however, this method spurred the development of the theoretically
+ efficient ellipsoid algorithm.
+\end_layout
+
+\begin_layout Standard
+Consider an LP with 
+\begin_inset Formula $n$
+\end_inset
+
+ variables and 
+\begin_inset Formula $m$
+\end_inset
+
+ constraints, with the form
+\begin_inset Formula 
+\begin{align*}
+\max\text{ } & \boldsymbol{c}^{\intercal}\boldsymbol{x}\\
+\text{s.t. } & {\bf A}\boldsymbol{x}\preceq\boldsymbol{b}
+\end{align*}
+
+\end_inset
+
+Recall that the optimal solution to this LP occurs at a vertex of the feasible
+ polytope, and corresponds to 
+\begin_inset Formula $n$
+\end_inset
+
+ linearly independent tight inequalities.
+ Assuming nondegeneracy (there is no vertex with greater than 
+\begin_inset Formula $n$
+\end_inset
+
+ such inequalities), we can apply the Simplex Algorithm.
+\end_layout
+
+\begin_layout Subsection
+Algorithm
+\end_layout
+
+\begin_layout Standard
+The Simplex Algorithm is divided into two phases.
+ In the first phase, we select a starting vertex 
+\begin_inset Formula $\boldsymbol{x}_{0}$
+\end_inset
+
+.
+ In the second phase, we use 
+\begin_inset Formula $\boldsymbol{x}_{0}$
+\end_inset
+
+ to compute the optimal vertex 
+\begin_inset Formula $\boldsymbol{x}^{*}$
+\end_inset
+
+.
+ At each step of the second phase algorithm, we move to a neighboring vertex
+ 
+\begin_inset Formula $\boldsymbol{x}^{\prime}=\boldsymbol{v}+\boldsymbol{x}$
+\end_inset
+
+ with 
+\begin_inset Formula $\boldsymbol{c}\boldsymbol{x}^{\prime}>\boldsymbol{c}\boldsymbol{x}$
+\end_inset
+
+.
+ Then, either 
+\begin_inset Formula $\boldsymbol{c}$
+\end_inset
+
+ is in the cone defined by the tight constraints at 
+\begin_inset Formula $\boldsymbol{x}^{\prime}$
+\end_inset
+
+, implying 
+\begin_inset Formula $\boldsymbol{x}^{*}=\boldsymbol{x}^{\prime}$
+\end_inset
+
+ by complementary slackness, or we can improve 
+\begin_inset Formula $\boldsymbol{c}\boldsymbol{x}$
+\end_inset
+
+ by moving along an edge of the polytope.
+ Incidentally, this algorithm will also produced the optimal dual 
+\begin_inset Formula $\boldsymbol{y}^{*}$
+\end_inset
+
+; in this view, the Simplex Algorithm is a primal-dual algorithm.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Algorithm
+* Write 
+\begin_inset Formula $\boldsymbol{x}=\boldsymbol{x}_{0}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Algorithm
+while true
+\end_layout
+
+\begin_deeper
+\begin_layout Algorithm
+* Let 
+\begin_inset Formula $T$
+\end_inset
+
+ be the set of linearly independent rows of 
+\begin_inset Formula ${\bf A}$
+\end_inset
+
+ which are tight at 
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+.
+ Write 
+\begin_inset Formula $\boldsymbol{c}={\bf A}_{T}^{\intercal}\boldsymbol{y}_{T}$
+\end_inset
+
+ for such a 
+\begin_inset Formula $T$
+\end_inset
+
+.
+ These are exactly the dual constraints if we include 
+\begin_inset Formula $\boldsymbol{y}\succeq0$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Algorithm
+if 
+\begin_inset Formula $\boldsymbol{y}\succeq0$
+\end_inset
+
+ (i.e., the dual constraints are satisfied)
+\end_layout
+
+\begin_deeper
+\begin_layout Algorithm
+* return 
+\begin_inset Formula $(\boldsymbol{x},\boldsymbol{y})$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Algorithm
+else
+\end_layout
+
+\begin_deeper
+\begin_layout Algorithm
+* Choose 
+\begin_inset Formula $i$
+\end_inset
+
+ with 
+\begin_inset Formula $y_{i}<0$
+\end_inset
+
+, and let 
+\begin_inset Formula $\boldsymbol{d}$
+\end_inset
+
+ be such that 
+\begin_inset Formula ${\bf A}_{T\setminus\{i\}}^{\intercal}\boldsymbol{d}=0$
+\end_inset
+
+ and 
+\begin_inset Formula $a_{i}\boldsymbol{d}=-1$
+\end_inset
+
+.
+ That is, we choose a constraint 
+\begin_inset Formula $i$
+\end_inset
+
+ such that moving in the direction 
+\begin_inset Formula $\boldsymbol{d}$
+\end_inset
+
+ preserves tightness of constraints in 
+\begin_inset Formula ${\bf A}_{T\setminus\{i\}}$
+\end_inset
+
+ and loosens constraint 
+\begin_inset Formula $i$
+\end_inset
+
+.
+ Because 
+\begin_inset Formula ${\bf A}_{T}$
+\end_inset
+
+ is full rank, we can choose any 
+\begin_inset Formula $\boldsymbol{d}\in null({\bf A}_{T\setminus\{i\}})$
+\end_inset
+
+.
+ This improves the objective because 
+\begin_inset Formula $\boldsymbol{c}^{\intercal}\boldsymbol{d}=\boldsymbol{y}^{\intercal}{\bf A}\boldsymbol{d}=y_{i}a_{i}\boldsymbol{d}>0$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Algorithm
+if 
+\begin_inset Formula $\boldsymbol{x}+\lambda\boldsymbol{d}$
+\end_inset
+
+ feasible for all 
+\begin_inset Formula $\lambda>0$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Algorithm
+* return unbounded
+\end_layout
+
+\end_deeper
+\begin_layout Algorithm
+endif
+\end_layout
+
+\begin_layout Algorithm
+* Set 
+\begin_inset Formula $\boldsymbol{x}=\boldsymbol{x}+\lambda\boldsymbol{d}$
+\end_inset
+
+ for the largest 
+\begin_inset Formula $\lambda$
+\end_inset
+
+ maintaining feasibility.
+ By nondegeneracy, 
+\begin_inset Formula $\lambda>0$
+\end_inset
+
+, so we essentially select a new tight constraint 
+\begin_inset Formula $j$
+\end_inset
+
+ to replaced the loosened constraint 
+\begin_inset Formula $i$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Algorithm
+endif
+\end_layout
+
+\end_deeper
+\begin_layout Algorithm
+endwhile
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Simplex Algorithm
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Properties
+\end_layout
+
+\begin_layout Claim
+If the Simplex Algorithm terminates, then it will correctly output a primal-dual
+ pair or correctly output that the LP is unbounded.
+\end_layout
+
+\begin_layout Claim
+Note that the primal feasibility of 
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+ is maintained throughout, and 
+\begin_inset Formula $(\boldsymbol{x},\boldsymbol{y})$
+\end_inset
+
+ is returned only if 
+\begin_inset Formula $\boldsymbol{y}$
+\end_inset
+
+ is the dual feasible which satisfies complementary slackness.
+ If so, then by strong duality 
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+ and 
+\begin_inset Formula $\boldsymbol{y}$
+\end_inset
+
+ are both optimal.
+ Furthermore, the Simplex Algorithm returns that the LP is unbounded only
+ if 
+\begin_inset Formula $\exists\boldsymbol{d}$
+\end_inset
+
+ with 
+\begin_inset Formula $\boldsymbol{c}^{\intercal}\boldsymbol{d}>0,{\bf A}\boldsymbol{d}\preceq0$
+\end_inset
+
+, which is the definition of unboundedness.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Claim
+Nondegeneracy implies that the Simplex Algorithm terminates in at most 
+\begin_inset Formula ${m \choose n}\leq2^{m}$
+\end_inset
+
+ steps.
+\end_layout
+
+\begin_layout Claim
+This is because the LP polyhedron has at most 
+\begin_inset Formula ${m \choose n}$
+\end_inset
+
+ vertices and (by nondegeneracy) the algorithm never repeats a vertex.
+ Also, the objective strictly improves at each vertex, and it is bounded,
+ so the algorithm will find the best vertex after checking at most 
+\begin_inset Formula ${m \choose n}$
+\end_inset
+
+ of them.
+\end_layout
+
+\begin_layout Subsection
+Pivot Rules
+\end_layout
+
+\begin_layout Standard
+The Simplex Algorithm seems to work well so far.
+ However, nondegeneracy is a strong assumption.
+ We need a rule to answer which vertex we choose when multiple vertices
+ improve the objective, and how to identify the next vertex in the presence
+ of degeneracy.
+ In particular, degeneracy allows for several algebraic vertices to represent
+ the same geometric vertex, so we need to avoid choosing an equivalent algebraic
+ vertex to guarantee termination.
+ Thus we can define a pivot rule, which specifies the order in which we
+ examine algebraic representations of vertices (that is, which constraint
+ 
+\begin_inset Formula $i$
+\end_inset
+
+ will leave 
+\begin_inset Formula $T$
+\end_inset
+
+ and which constraint 
+\begin_inset Formula $j$
+\end_inset
+
+ will enter 
+\begin_inset Formula $T$
+\end_inset
+
+).
+ Some examples include:
+\end_layout
+
+\begin_layout Enumerate
+Bland's Rule: Select the lowest indexed 
+\begin_inset Formula $i$
+\end_inset
+
+ and the lowest indexed 
+\begin_inset Formula $j$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+Lexicographic: Maintain an order over the rows of 
+\begin_inset Formula $T$
+\end_inset
+
+, then move from 
+\begin_inset Formula $T$
+\end_inset
+
+ to the lowest ordered 
+\begin_inset Formula $T^{\prime}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+Perturbation: Perturb 
+\begin_inset Formula $b$
+\end_inset
+
+ by small values to remove degeneracy (this can be a symbolic perturbation).
+\end_layout
+
+\begin_layout Standard
+Many pivot rules have been shown to never repeat an algebraic vertex, but
+ no pivot rules have been shown to guarantee a polynomial number of checked
+ points.
+ Thus, the Simplex Algorithm has exponential worst-case runtime.
+ However, that doesn't explain why the algorithm is so efficient in practice.
+ In 2001, Shang-Hua Teng and Daniel Spielman invented the field of smoothed
+ analysis, which analyzes algorithms with noise representing measurement
+ error.
+ It turns out that the Simplex Algorithm has polynomial smoothed complexity
+ which scales with the inverse of the standard deviation of the measurement
+ error – so in many real-life cases where measurement error is small, the
+ Simplex Algorithm runs efficiently.
+\end_layout
+
+\begin_layout Standard
+Open Question: Is there a pivot rule which guarantees a polynomial number
+ of pivots in the worst case? A solution to this question would yield a
+ strongly polynomial time algorithm for solving LPs (i.e., one that does not
+ depend on the desired bit precision).
+ It would also resolve a classic open question in polyhedral combinatorics:
+ the Polynomial Hirsch Conjecture.
+\end_layout
+
+\begin_layout Subsection
+Initialization
+\end_layout
+
+\begin_layout Standard
+We still need to figure out how to select our starting vertex 
+\begin_inset Formula $\boldsymbol{x}_{0}$
+\end_inset
+
+.
+ For this, we design an LP whose optimal solution is a vertex of the polyhedron
+ formed by the constraints of the original LP.
+ First note that if 
+\begin_inset Formula $\boldsymbol{x}=\boldsymbol{0}$
+\end_inset
+
+ is feasible in the original LP, then it must be a vertex, and we can use
+ that to start.
+ Otherwise, we design a new LP with a variable 
+\begin_inset Formula $z$
+\end_inset
+
+ measuring how far a solution is from feasibility:
+\begin_inset Formula 
+\begin{align*}
+\min & z\\
+\text{s.t } & {\bf A}\boldsymbol{x}-z\boldsymbol{1}\preceq\boldsymbol{b}\\
+ & \boldsymbol{x}\succeq0\\
+ & z\geq0
+\end{align*}
+
+\end_inset
+
+If the original LP is feasible, then 
+\begin_inset Formula $z=0$
+\end_inset
+
+ is 
+\begin_inset Formula $OPT$
+\end_inset
+
+ for the new LP.
+ So, the optimal vertex solution with 
+\begin_inset Formula $z=0$
+\end_inset
+
+ corresponds to the vertex 
+\begin_inset Formula $\boldsymbol{x}_{0}$
+\end_inset
+
+ of the original LP.
+ This LP is solvable in polynomial time by applying Phase II of the Simplex
+ Algorithm using 
+\series bold
+
+\begin_inset Formula $\boldsymbol{x}_{0}=\boldsymbol{0},z_{0}=-\boldsymbol{b}_{min}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Ellipsoid Algorithm
+\end_layout
+
+\begin_layout Standard
+The Ellipsoid Algorithm was developed in 1976 by Yudin, Nemirovski, and
+ Shor as a heuristic for convex optimization; then in 1979, Khachiyan showed
+ that it yields a polynomial time algorithm for solving LPs, a significant
+ theoretical breakthrough.
+ Though it is inefficient in practice, it is theoretically powerful and
+ has deep consequences for complexity and optimization.
+ The Ellipsoid Algorithm solves the 
+\series bold
+convex feasibility problem
+\series default
+: Given a description of a convex set 
+\begin_inset Formula $K\subseteq\mathbb{R}^{n}$
+\end_inset
+
+ (either directly or by a separation oracle), an ellipsoid 
+\begin_inset Formula $E(\boldsymbol{c},{\bf Q})$
+\end_inset
+
+ containing 
+\begin_inset Formula $K$
+\end_inset
+
+, a rational number 
+\begin_inset Formula $R>0$
+\end_inset
+
+ with 
+\begin_inset Formula $vol(E)\leq R$
+\end_inset
+
+, and a rational number 
+\begin_inset Formula $r>0$
+\end_inset
+
+ with 
+\begin_inset Formula $vol(K)\geq r$
+\end_inset
+
+, find a point 
+\begin_inset Formula $\boldsymbol{x}\in K$
+\end_inset
+
+ or else declare that 
+\begin_inset Formula $K$
+\end_inset
+
+ is empty.
+ The intuition here is that the Ellipsoid Algorithm performs binary search
+ in high dimension.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+wide false
+sideways false
+status open
+
+\begin_layout Algorithm
+* 
+\begin_inset Formula $E=E(\boldsymbol{c},{\bf Q})\supseteq K$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Algorithm
+while true
+\end_layout
+
+\begin_deeper
+\begin_layout Algorithm
+* Using the separation oracle, check if 
+\begin_inset Formula $\boldsymbol{c}\in K$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Algorithm
+if 
+\begin_inset Formula $\boldsymbol{c}\in K$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Algorithm
+* Output 
+\begin_inset Formula $\boldsymbol{c}$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Algorithm
+else
+\end_layout
+
+\begin_deeper
+\begin_layout Algorithm
+* Oracle returns a separating hyperplane 
+\begin_inset Formula $\boldsymbol{h}$
+\end_inset
+
+ such that 
+\begin_inset Formula $K$
+\end_inset
+
+ is contained in the half-ellipsoid 
+\begin_inset Formula $E\bigcap\{\boldsymbol{y}:\boldsymbol{h}^{\intercal}\boldsymbol{y}\leq\boldsymbol{h}^{\intercal}\boldsymbol{c}\}$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Algorithm
+* Let 
+\begin_inset Formula $E^{\prime}=E(\boldsymbol{c}^{\prime},{\bf Q}^{\prime})$
+\end_inset
+
+ be the minimum volume ellipsoid containing the half-ellipsoid above
+\end_layout
+
+\begin_layout Algorithm
+if 
+\begin_inset Formula $vol(E^{\prime})\geq r$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Algorithm
+* Set 
+\begin_inset Formula $E=E^{\prime}$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Algorithm
+else
+\end_layout
+
+\begin_deeper
+\begin_layout Algorithm
+* Return empty
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Ellipsoid Algorithm
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Claim
+If the Ellipsoid Algorithm terminates, then it either outputs an 
+\begin_inset Formula $\boldsymbol{x}\in K$
+\end_inset
+
+ or correctly outputs that 
+\begin_inset Formula $K$
+\end_inset
+
+ is empty.
+\end_layout
+
+\begin_layout Claim
+We know that the algorithm only outputs 
+\begin_inset Formula $\boldsymbol{x}$
+\end_inset
+
+ if the oracle confirms that it is in 
+\begin_inset Formula $K$
+\end_inset
+
+.
+ 
+\begin_inset Formula $E\supseteq K$
+\end_inset
+
+ is maintained throughout the algorithm by definition, and we are promised
+ that 
+\begin_inset Formula $vol(K)<r$
+\end_inset
+
+ iff 
+\begin_inset Formula $K=\emptyset$
+\end_inset
+
+.
+ Thus, if the algorithm outputs empty then 
+\begin_inset Formula $r>vol(E)\geq vol(K)$
+\end_inset
+
+ and thus 
+\begin_inset Formula $K=\emptyset$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Theorem
+The Ellipsoid Algorithm runs in polynomial time.
+\end_layout
+
+\begin_layout Proof
+\begin_inset Formula $\phantom{}$
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Lemma
+The minimum volume ellipsoid containing half of another ellipsoid can be
+ computed in polynomial time.
+ Also, the volume of the new ellipsoid is smaller than the volume of the
+ previous ellipsoid by a factor of at least 
+\begin_inset Formula $\exp(\frac{1}{2(n+1)})\approx1+\frac{1}{2(n+1)}$
+\end_inset
+
+.
+ There is a tricky-to-prove, easy-to-compute closed form for the matrix
+ and center of the new ellipsoid in terms of the matrix and center of the
+ previous ellipsoid.
+\end_layout
+
+\end_deeper
+\begin_layout Proof
+The volume of the working ellipsoid starts off at 
+\begin_inset Formula $R$
+\end_inset
+
+.
+ It decreases by a factor of 
+\begin_inset Formula $\exp(\frac{1}{2(n+1)})$
+\end_inset
+
+ each iteration.
+ Therefore after 
+\begin_inset Formula $2(n+1)\ln R/r$
+\end_inset
+
+ iterations, the volume is less than 
+\begin_inset Formula $r$
+\end_inset
+
+, triggering termination.
+ So, in each iteration we 1) call the separation oracle, 2) compute the
+ minimum-volume ellipsoid, and 3) compute the volume of the new ellipsoid.
+ Step 1 is polynomial time by definition, step 2 is polynomial time by the
+ lemma, and step 3 is polynomial time because it is a determinant computation.
+ Thus the Ellipsoid Algorithm runs in polynomial time.
+\end_layout
+
+\end_body
+\end_document
